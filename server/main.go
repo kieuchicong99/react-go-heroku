@@ -1,12 +1,16 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
-	"github.com/swaggo/files"       // swagger embed files
-	"github.com/swaggo/gin-swagger" // gin-swagger middleware
-	"github.com/swaggo/swag/example/celler/controller"
+	"log"
+	"os"
 	"server/docs"
+
 	"github.com/gin-gonic/contrib/static"
+	"github.com/gin-gonic/gin"
+	_ "github.com/lib/pq"
+	swaggerFiles "github.com/swaggo/files"     // swagger embed files
+	ginSwagger "github.com/swaggo/gin-swagger" // gin-swagger middleware
+	"github.com/swaggo/swag/example/celler/controller"
 )
 
 // @title Swagger Example API
@@ -25,10 +29,11 @@ import (
 // @BasePath /v2
 
 func main() {
-	docs.SwaggerInfo.Title = "Swagger Example API"
+	port := os.Getenv("PORT")
+	docs.SwaggerInfo.Title = "Swagger API"
 	docs.SwaggerInfo.Description = "This is a sample server."
 	docs.SwaggerInfo.Version = "1.0"
-	docs.SwaggerInfo.Host = "localhost:8080"
+	docs.SwaggerInfo.Host = "localhost:" + port
 	docs.SwaggerInfo.BasePath = "/api/v1"
 	docs.SwaggerInfo.Schemes = []string{"http", "https"}
 
@@ -51,8 +56,14 @@ func main() {
 		}
 	}
 	url := ginSwagger.URL("/swagger/doc.json")
-	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url ))
-	r.Run(":8080")
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
+
+	
+
+	if port == "" {
+		log.Fatal("$PORT must be set")
+	}
+	r.Run(":" + port)
 }
 
 func CORSMiddleware() gin.HandlerFunc {
@@ -63,7 +74,6 @@ func CORSMiddleware() gin.HandlerFunc {
 		c.Writer.Header().Set("Access-Control-Allow-Headers", "Access-Control-Allow-Origin, Origin, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
 		c.Writer.Header().Set("Access-Control-Expose-Headers", "Content-Length")
 		c.Writer.Header().Set("Access-Control-Allow-Credentials", "true")
-
 
 		if c.Request.Method == "OPTIONS" {
 			c.AbortWithStatus(200)

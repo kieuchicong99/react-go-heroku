@@ -2,4 +2,4 @@ build:
   docker:
     web: Dockerfile
     worker:
-       dockerfile: Dockerfile
+      dockerfile: Dockerfile

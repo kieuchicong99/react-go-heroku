@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -8,6 +9,7 @@ import (
 	"server/httputil"
 	"server/model"
 )
+var connect,_ = connector()
 // @Tags User
 // ShowAccount godoc
 // @Summary Show a account
@@ -22,6 +24,7 @@ import (
 // @Failure 500 {object} httputil.HTTPError
 // @Router /accounts/{id} [get]
 func (c *Controller) ShowAccount(ctx *gin.Context) {
+	fmt.Print("connection : ", connect )
 	id := ctx.Param("id")
 	aid, err := strconv.Atoi(id)
 	if err != nil {

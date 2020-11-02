@@ -1,10 +1,8 @@
-# Tutorial React + Go deployed to Heroku + Docker
+# command use
 
-This codebase is designed to be used in conjunction with the medium series I have written. For best results please follow the instructions found there.
-
-## What you need
-* Node
-* Go
-* Docker
-* Heroku account
-
+heroku login
+heroku create go-react-heroku
+heroku stack:set container
+heroku container:push web
+heroku config:set PORT=8080
+heroku container:release web
