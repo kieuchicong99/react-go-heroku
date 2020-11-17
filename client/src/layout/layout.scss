@@ -26,3 +26,27 @@ div > a {
 	background: #ffffff;
 	
 }
+
+.title{
+	text-transform: uppercase;
+	font-weight: 900;
+	margin-bottom : 30px
+}
+
+.ant-layout-footer{
+	text-align: left;
+	padding-left: 100px;
+	padding-right: 100px;
+	div>a{
+		display: block;
+		color: #000000;
+		padding: 5px;
+		text-align: left;
+	}
+}
+
+.payment{
+	img{
+		padding: 10px;
+	}
+}
