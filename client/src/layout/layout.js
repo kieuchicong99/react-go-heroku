@@ -7,7 +7,8 @@ import {
 } from '@ant-design/icons';
 import { Button, Col, Layout, Row } from 'antd';
 import React from 'react';
-import { Route, Switch, BrowserRouter as Router, Link } from 'react-router-dom';
+import { useHistory } from 'react-router';
+import { Route, Switch, Link } from 'react-router-dom';
 
 import cash from '../assets/cash.svg';
 import installment from '../assets/installment.svg';
@@ -54,9 +55,9 @@ function ContentLayout() {
         </Col>
         <Col span={8}>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Link to="/thi-nghiem">Thí nghiệm </Link>
-            <Link to="/thongke">Thống kê </Link>
-            <Link to="/bieudo">Biểu đồ</Link>
+            <Link to="/home/thi-nghiem">Thí nghiệm </Link>
+            <Link to="/home/thongke">Thống kê </Link>
+            <Link to="/home/bieudo">Biểu đồ</Link>
           </div>
         </Col>
 
@@ -73,10 +74,11 @@ function ContentLayout() {
 
       <div style={{ padding: '30px 60px 50px' }}>
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/thi-nghiem" component={Page1} />
-          <Route path="/thongke" component={Page2} />
-          <Route path="/bieudo" component={Page3} />
+          <Route path="/home/thi-nghiem" component={Page1} />
+          <Route path="/home/thongke" component={Page2} />
+          <Route path="/home/bieudo" component={Page3} />
+
+          <Route extract path="/" component={Home} />
         </Switch>
       </div>
     </div>
@@ -84,6 +86,7 @@ function ContentLayout() {
 }
 
 function AppHeader() {
+  const history = useHistory();
   return (
     <Header
       style={{
@@ -109,12 +112,17 @@ function AppHeader() {
           <div>Liên hệ với chúng tôi: 123-456-789</div>
         </Col>
         <Col span={8}>
-          <Link to="/">Home</Link> | <Link to="/about">About</Link>
+          <Link to="/home">Home</Link> | <Link to="/about">About</Link>
         </Col>
         <Col span={8}>
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
             <Button style={{ marginRight: '10px' }}> Đăng ký</Button>
-            <Button> Đăng nhập</Button>
+            <Button
+              onClick={() => {
+                history.push('/login');
+              }}>
+              Đăng nhập
+            </Button>
           </div>
         </Col>
       </Row>
@@ -129,29 +137,29 @@ function AppFooter() {
         <Col span={6}>
           <div className="title">hỗ trợ khách hàng</div>
           <div>
-            <Link to>
+            <Link to="">
               <span style={{ color: 'rgb(196, 1, 26)', fontWeight: '500' }}>
                 Hotline chăm sóc khách hàng : 1900-6035
               </span>
               <br /> (1000đ/phút, 8-21h kể cả T7,CN)
             </Link>
-            <Link to> Chính sách bảo mật thanh toán</Link>
-            <Link to> Điều khoản sử dụng</Link>
+            <Link to=""> Chính sách bảo mật thanh toán</Link>
+            <Link to=""> Điều khoản sử dụng</Link>
           </div>
         </Col>
         <Col span={6}>
           <div className="title">các chính sách </div>
           <div>
-            <Link to> Chính sách bảo mật thông tin cá nhân</Link>
-            <Link to> Chính sách bảo mật thanh toán</Link>
-            <Link to> Điều khoản sử dụng</Link>
+            <Link to=""> Chính sách bảo mật thông tin cá nhân</Link>
+            <Link to=""> Chính sách bảo mật thanh toán</Link>
+            <Link to=""> Điều khoản sử dụng</Link>
           </div>
         </Col>
         <Col span={6}>
           <div className="title">hợp tác và liên kết</div>
           <div>
-            <Link to> Quy chế hoạt động </Link>
-            <Link to> Đăng ký trở thành chủ trọ</Link>
+            <Link to=""> Quy chế hoạt động </Link>
+            <Link to=""> Đăng ký trở thành chủ trọ</Link>
           </div>
         </Col>
         <Col span={6}>
@@ -184,17 +192,15 @@ function AppFooter() {
 function AppLayout() {
   return (
     <div>
-      <Router>
-        <Layout style={{ minHeight: '100vh' }}>
-          <AppHeader />
+      <Layout style={{ minHeight: '100vh' }}>
+        <AppHeader />
 
-          <Content style={{ background: '#ffffff', padding: '10px' }}>
-            <ContentLayout />
-          </Content>
+        <Content style={{ background: '#ffffff', padding: '10px' }}>
+          <ContentLayout />
+        </Content>
 
-          <AppFooter />
-        </Layout>
-      </Router>
+        <AppFooter />
+      </Layout>
     </div>
   );
 }
