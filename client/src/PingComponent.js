@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import axios from "axios";
+import axios from 'axios';
+import React, { Component } from 'react';
 class PingComponent extends Component {
   constructor() {
     super();
@@ -10,12 +10,10 @@ class PingComponent extends Component {
 
   componentWillMount() {
     axios
-      .get("api/v1/accounts")
+      .get('api/v1/accounts')
       .then((response) => {
-        console.log("response:", response);
-        this.setState(() => {
-          return { accountList: response.data };
-        });
+        console.log('response:', response);
+        this.setState(() => ({ accountList: response.data }));
       })
       .catch(function (error) {
         console.log(error);
@@ -26,9 +24,9 @@ class PingComponent extends Component {
     return (
       <>
         <h1>Account List</h1>
-        {this.state.accountList.map((item) => {
-          return <div>{item.username}</div>;
-        })}
+        {this.state.accountList.map((item) => (
+          <div>{item.username}</div>
+        ))}
       </>
     );
   }
