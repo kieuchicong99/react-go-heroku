@@ -11,8 +11,27 @@ func NewError(ctx *gin.Context, status int, err error) {
 	ctx.JSON(status, er)
 }
 
-// HTTPError example
+// HTTPError
 type HTTPError struct {
+	Code    int    `json:"code" `
+	Message string `json:"message" `
+}
+
+
+// HTTPError BadRequest
+type ErrBadRequest struct {
 	Code    int    `json:"code" example:"400"`
-	Message string `json:"message" example:"status bad request"`
+	Message string `json:"message" example:"Bad Request"`
+}
+
+// HTTPError NotFound
+type ErrNotFound struct {
+	Code    int    `json:"code" example:"404"`
+	Message string `json:"message" example:"Not Found"`
+}
+
+// HTTPError InternalServer
+type ErrInternalServer struct {
+	Code    int    `json:"code" example:"500"`
+	Message string `json:"message" example:"InternalServer"`
 }

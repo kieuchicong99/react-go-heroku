@@ -1,8 +1,8 @@
 package main
 
 import (
-	"log"
-	"os"
+	// "log"
+	// "os"
 	"server/docs"
 
 	"github.com/gin-gonic/contrib/static"
@@ -10,7 +10,7 @@ import (
 	_ "github.com/lib/pq"
 	swaggerFiles "github.com/swaggo/files"     // swagger embed files
 	ginSwagger "github.com/swaggo/gin-swagger" // gin-swagger middleware
-	"github.com/swaggo/swag/example/celler/controller"
+	"server/controller"
 )
 
 // @title Swagger Example API
@@ -29,11 +29,11 @@ import (
 // @BasePath /v2
 
 func main() {
-	port := os.Getenv("PORT")
+	// port := os.Getenv("PORT")
 	docs.SwaggerInfo.Title = "Swagger API"
 	docs.SwaggerInfo.Description = "This is a sample server."
 	docs.SwaggerInfo.Version = "1.0"
-	docs.SwaggerInfo.Host = "localhost:" + port
+	docs.SwaggerInfo.Host = "localhost:" + "8080"
 	docs.SwaggerInfo.BasePath = "/api/v1"
 	docs.SwaggerInfo.Schemes = []string{"http", "https"}
 
@@ -58,18 +58,16 @@ func main() {
 	url := ginSwagger.URL("/swagger/doc.json")
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler, url))
 
-	
-
-	if port == "" {
-		log.Fatal("$PORT must be set")
-	}
-	r.Run(":" + port)
+	// if port == "" {
+	// 	log.Fatal("$PORT must be set")
+	// }
+	r.Run(":" + "8080")
 }
 
 func CORSMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		c.Writer.Header().Set("Access-Control-Allow-Origin", c.Request.Header.Get("Origin"))
-		c.Writer.Header().Set("Access-Control-Max-Age", "86400")
+		c.Writer.Header().Set("Access-Control-Max-Age", "0")
 		c.Writer.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE, UPDATE")
 		c.Writer.Header().Set("Access-Control-Allow-Headers", "Access-Control-Allow-Origin, Origin, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
 		c.Writer.Header().Set("Access-Control-Expose-Headers", "Content-Length")

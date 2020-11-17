@@ -4,6 +4,8 @@ package model
 import (
 "errors"
 "fmt"
+"time"
+
 
 uuid "github.com/gofrs/uuid"
 )
@@ -12,6 +14,13 @@ var (
 	// ErrNoRow example
 	ErrNoRow = errors.New("no rows in result set")
 )
+
+type User struct {
+	UserName string `json:"username" example:"kieuchicong"`
+	PassWord string `json:"pasword" example:"password"`
+	Email    string `json:"email" example:"example@gmail.com" `
+	CreatedOn time.Time `json:"createdOn" example:"2020-11-01 00:00:00" format:"2020-11-01 00:00:00"`
+}
 
 // Account example
 type Account struct {

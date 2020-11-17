@@ -27,7 +27,7 @@ class PingComponent extends Component {
       <>
         <h1>Account List</h1>
         {this.state.accountList.map((item) => {
-          return <div>{item.name}</div>;
+          return <div>{item.username}</div>;
         })}
       </>
     );
