@@ -18,7 +18,7 @@ import logo from '../assets/logo.webp';
 import mastercard from '../assets/mastercard.svg';
 import visa from '../assets/visa.svg';
 import bg from '../logo.svg';
-import Page1 from '../pages/Page1';
+import Page1 from '../pages/nhatro/nhatro';
 import Page2 from '../pages/Page2';
 import Page3 from '../pages/Page3';
 import './layout.scss';
@@ -55,7 +55,7 @@ function ContentLayout() {
         </Col>
         <Col span={8}>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <Link to="/home/thi-nghiem">Thí nghiệm </Link>
+            <Link to="/home/nha-tro">Nhà trọ </Link>
             <Link to="/home/thongke">Thống kê </Link>
             <Link to="/home/bieudo">Biểu đồ</Link>
           </div>
@@ -74,7 +74,7 @@ function ContentLayout() {
 
       <div style={{ padding: '30px 60px 50px' }}>
         <Switch>
-          <Route path="/home/thi-nghiem" component={Page1} />
+          <Route path="/home/nha-tro" component={Page1} />
           <Route path="/home/thongke" component={Page2} />
           <Route path="/home/bieudo" component={Page3} />
 
