@@ -1,0 +1,16 @@
+.FilterItems {
+  margin-top: 5%;
+}
+.FilterObject {
+  font-weight: bold;
+  margin: 5% 0 5% 10%;
+  border-bottom: 1px solid red;
+  width: 80%;
+  padding-bottom: 10px;
+}
+.FilterList {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 15%;
+}

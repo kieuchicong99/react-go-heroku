@@ -1,0 +1,10 @@
+.ParentImage{
+  width: 650px;
+  height: 300px
+}
+.ChildImage{
+  width: 150px;
+  height: 100px;
+  border-Radius: 5px;
+  margin-Left: 10px
+}

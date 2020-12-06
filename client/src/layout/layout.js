@@ -21,6 +21,8 @@ import bg from '../logo.svg';
 import Page1 from '../pages/nhatro/nhatro';
 import Page2 from '../pages/Page2';
 import Page3 from '../pages/Page3';
+import Motel from '../pages/nhatro/MotelInfor'
+import Register from "../pages/login/Register"
 import './layout.scss';
 
 const { Footer, Header, Content } = Layout;
@@ -75,9 +77,9 @@ function ContentLayout() {
       <div style={{ padding: '30px 60px 50px' }}>
         <Switch>
           <Route path="/home/nha-tro" component={Page1} />
-          <Route path="/home/thongke" component={Page2} />
-          <Route path="/home/bieudo" component={Page3} />
-
+          <Route path="/home/thongke" component={Register} />
+          <Route path="/home/bieudo" component={Motel} />
+          {/*  <Route path="/motel" component={Motel} /> */}
           <Route extract path="/" component={Home} />
         </Switch>
       </div>
@@ -116,7 +118,11 @@ function AppHeader() {
         </Col>
         <Col span={8}>
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <Button style={{ marginRight: '10px' }}> Đăng ký</Button>
+            <Button style={{ marginRight: '10px' }}
+             onClick={() => {
+              history.push('/register');
+             }}
+            > Đăng ký</Button>
             <Button
               onClick={() => {
                 history.push('/login');
