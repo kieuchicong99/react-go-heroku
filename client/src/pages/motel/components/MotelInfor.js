@@ -3,7 +3,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './MotelInfor.css';
-import { Button, Col, Row } from 'antd';
+import { Button, Col, Row, Tooltip } from 'antd';
 import {
   HomeOutlined,
   DollarCircleOutlined,
@@ -11,6 +11,7 @@ import {
   PhoneOutlined,
   HeartOutlined,
   ArrowLeftOutlined,
+  HeartFilled
 } from '@ant-design/icons';
 const displayImage = [
   'https://react-slideshow.herokuapp.com/assets/images/slide_2.jpg',
@@ -24,6 +25,9 @@ export default class Motel extends Component {
     this.state = {
       nav1: null,
       nav2: null,
+      addFavourite: 0,
+      colorIcon: "blue",
+      notify: "Bấm để bỏ lưu tin"
     };
   }
 
@@ -34,6 +38,14 @@ export default class Motel extends Component {
     });
   }
   render() {
+    const styles = {
+      containerStyle: {
+        color: this.state.colorIcon,
+        fontSize: "20px",
+        marginLeft:"10px"
+      },
+      notify: this.state.notify
+    };
     return (
       <div style={{ width: '100%' }}>
         <Button
@@ -50,7 +62,7 @@ export default class Motel extends Component {
           <Col span={18}>
             <div
               style={{
-                // marginLeft: '300px',
+               
                 backgroundColor: '#A0A0A0',
               }}>
               <Slider asNavFor={this.state.nav2} ref={(slider) => (this.slider1 = slider)}>
@@ -101,8 +113,27 @@ export default class Motel extends Component {
                     <p style={{ fontWeight: 'bold', fontSize: '20px' }}>575 m2</p>
                   </Col>
                   <Col span={6} style={{}}>
-                    <div style={{ marginTop: '15%', fontWeight: 'bold', fontSize: '18px' }}>
-                      Lưu tin <HeartOutlined />
+                    <div style={{ marginTop: '15%', fontWeight: 'bold', fontSize: '18px', cursor: "pointer" }}>
+                      Lưu tin
+                      <Tooltip title={styles.notify} placement="bottom" >
+                        <HeartFilled style={styles.containerStyle} onClick={() => {
+                          this.setState({
+                            addFavourite: this.state.addFavourite + 1
+                          })
+                          if (this.state.addFavourite % 2 == 0) {
+                            this.setState({
+                              colorIcon: "",
+                              notify: "Bấm để lưu tin"
+                            })
+                          }
+                          else {
+                            this.setState({
+                              colorIcon: "blue",
+                              notify: "Bấm để bỏ lưu tin"
+                            })
+                          }
+                        }} />
+                      </Tooltip>
                     </div>
                   </Col>
                 </Row>

@@ -7,6 +7,8 @@ import './index.css';
 import App from './App';
 import PageNotFound from './pages/PageNotFound';
 import Login from './pages/login/Login';
+import Register from './pages/login/Register';
+
 import store from './redux/store';
 import * as serviceWorker from './serviceWorker';
 
@@ -19,6 +21,8 @@ class Root extends React.Component {
           <Switch>
             <Route extract path="/home" component={App} />
             <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
+
             {/* <Route path="/*" component={PageNotFound} /> */}
           </Switch>
         </BrowserRouter>

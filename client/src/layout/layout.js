@@ -1,7 +1,7 @@
-import { SearchOutlined, HeartOutlined } from '@ant-design/icons';
-import { Col, Layout } from 'antd';
+import { SearchOutlined, HeartOutlined, DownOutlined } from '@ant-design/icons';
+import { Col, Layout, Menu, Dropdown } from 'antd';
 import React from 'react';
-
+import { useHistory } from 'react-router';
 import { Route, Switch, Link } from 'react-router-dom';
 
 import logo from '../assets/logo.webp';
@@ -10,11 +10,12 @@ import Motel from '../pages/motel/Motel';
 import Page2 from '../pages/Page2';
 import Page3 from '../pages/Page3';
 import MotelInfor from '../pages/motel/components/MotelInfor';
+import MotelFavorite from '../pages/motel/components/MotelFavorite';
+import MenuMotel from '../pages/motel/components/menuMotel';
 import Register from '../pages/login/Register';
 import './layout.scss';
 import AppFooter from './Footer';
 import AppHeader from './Header';
-
 const { Header, Content } = Layout;
 
 function Home() {
@@ -56,10 +57,10 @@ function ContentLayout() {
         <Col span={8}>
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
             <SearchOutlined
-              style={{ fontSize: 25, paddingRight: '20px' }}
+              style={{ fontSize: 25, padding: '5px 20px 0 0' }}
               title="Tìm kiếm bài viết"
             />
-            <HeartOutlined style={{ fontSize: 25 }} title="Bài viết yêu thích" />
+           <MenuMotel />
           </div>
         </Col>
       </div>
@@ -67,8 +68,9 @@ function ContentLayout() {
       <div style={{ padding: '30px 60px 50px' }}>
         <Switch>
           <Route path="/home/nha-tro" component={Motel} />
-          <Route path="/home/thongke" component={Register} />
+          <Route path="/home/thongke" component={Page2} />
           <Route path="/home/nha-tro-detail" component={MotelInfor} />
+          <Route path="/home/nha-tro-favorite" component={MotelFavorite} />
           <Route extract path="/" component={Home} />
         </Switch>
       </div>
