@@ -113,7 +113,7 @@ const Register = () => {
     value: website,
   }));
   return (
-    <Form
+    <Form style={{marginTop:"5%", width:"60%"}}
       {...formItemLayout}
       form={form}
       name="register"

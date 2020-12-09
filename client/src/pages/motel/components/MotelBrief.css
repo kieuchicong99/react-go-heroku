@@ -1,3 +1,6 @@
 .MotalInfor:hover {
     cursor: pointer;
 }
+.change-color{
+    color: green;
+}
