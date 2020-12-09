@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
+import { Redirect } from 'react-router';
 import './index.css';
 import App from './App';
 import PageNotFound from './pages/PageNotFound';
@@ -24,6 +25,9 @@ class Root extends React.Component {
             <Route path="/register" component={Register} />
 
             {/* <Route path="/*" component={PageNotFound} /> */}
+            <Redirect to="/home">
+              <App></App>
+            </Redirect>
           </Switch>
         </BrowserRouter>
       </Provider>

@@ -1,18 +1,15 @@
-import { SearchOutlined, HeartOutlined, DownOutlined } from '@ant-design/icons';
-import { Col, Layout, Menu, Dropdown } from 'antd';
+import { SearchOutlined } from '@ant-design/icons';
+import { Col, Layout } from 'antd';
 import React from 'react';
-import { useHistory } from 'react-router';
 import { Route, Switch, Link } from 'react-router-dom';
-
+import { Redirect } from 'react-router';
 import logo from '../assets/logo.webp';
-import bg from '../logo.svg';
 import Motel from '../pages/motel/Motel';
 import Page2 from '../pages/Page2';
-import Page3 from '../pages/Page3';
 import MotelInfor from '../pages/motel/components/MotelInfor';
 import MotelFavorite from '../pages/motel/components/MotelFavorite';
 import MenuMotel from '../pages/motel/components/menuMotel';
-import Register from '../pages/login/Register';
+
 import './layout.scss';
 import AppFooter from './Footer';
 import AppHeader from './Header';
@@ -20,16 +17,19 @@ const { Header, Content } = Layout;
 
 function Home() {
   return (
-    <img
-      src={bg}
-      style={{
-        width: '100%',
-        height: 'auto',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
-      }}
-    />
+    // <img
+    //   src={bg}
+    //   style={{
+    //     width: '100%',
+    //     height: 'auto',
+    //     backgroundPosition: 'center',
+    //     backgroundRepeat: 'no-repeat',
+    //     backgroundSize: 'cover',
+    //   }}
+    // />
+    <Redirect to="/home/nha-tro">
+      <Motel></Motel>
+    </Redirect>
   );
 }
 
@@ -60,7 +60,7 @@ function ContentLayout() {
               style={{ fontSize: 25, padding: '5px 20px 0 0' }}
               title="Tìm kiếm bài viết"
             />
-           <MenuMotel />
+            <MenuMotel />
           </div>
         </Col>
       </div>
