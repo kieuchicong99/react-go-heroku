@@ -12,6 +12,9 @@ import Page3 from '../pages/Page3';
 import MotelInfor from '../pages/motel/components/MotelInfor';
 import MotelFavorite from '../pages/motel/components/MotelFavorite';
 import MenuMotel from '../pages/motel/components/menuMotel';
+import PostInfor from '../pages/motel/components/PostInfor';
+import SwitchExample from '../pages/motel/components/Switch';
+
 import Register from '../pages/login/Register';
 import './layout.scss';
 import AppFooter from './Footer';
@@ -56,11 +59,11 @@ function ContentLayout() {
 
         <Col span={8}>
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <SearchOutlined
-              style={{ fontSize: 25, padding: '5px 20px 0 0' }}
-              title="Tìm kiếm bài viết"
-            />
-           <MenuMotel />
+            <div id="wrap">
+                <input id="search" name="search" type="text" placeholder="Tìm kiếm" />
+                <input id="search_submit" value="Rechercher" type="submit" />
+            </div>
+            <MenuMotel />
           </div>
         </Col>
       </div>
@@ -68,7 +71,10 @@ function ContentLayout() {
       <div style={{ padding: '30px 60px 50px' }}>
         <Switch>
           <Route path="/home/nha-tro" component={Motel} />
-          <Route path="/home/thongke" component={Page2} />
+          <Route path="/home/thongke" component={PostInfor} />
+          <Route path="/home/bieudo" component={Page3} />
+
+
           <Route path="/home/nha-tro-detail" component={MotelInfor} />
           <Route path="/home/nha-tro-favorite" component={MotelFavorite} />
           <Route extract path="/" component={Home} />
