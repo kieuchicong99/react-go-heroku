@@ -12,7 +12,6 @@ export const HEADERS = {
   }),
   file_header: () => ({
     'Content-Type': 'multipart/form-data',
-    Authorization: localStorage.getItem('jwt'),
   }),
 };
 
@@ -29,6 +28,13 @@ export const API_URLS = {
       method: 'POST',
       headers: HEADERS.DEFAULT_HEADER(),
       payload,
+    }),
+  },
+  MEDIA: {
+    imageUpload: () => ({
+      endPoint: `/api/v1/file/files`,
+      method: 'POST',
+      headers: HEADERS.file_header(),
     }),
   },
 };
