@@ -1,19 +1,18 @@
-import { SearchOutlined } from '@ant-design/icons';
 import { Col, Layout } from 'antd';
 import React from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
+import { Route, Switch, Link } from 'react-router-dom';
+
 import logo from '../assets/logo.webp';
 import Motel from '../pages/motel/Motel';
-import Page2 from '../pages/Page2';
-import MotelInfor from '../pages/motel/components/MotelInfor';
 import MotelFavorite from '../pages/motel/components/MotelFavorite';
+import MotelInfor from '../pages/motel/components/MotelInfor';
+import PostInfor from '../pages/motel/components/PostInfor';
 import MenuMotel from '../pages/motel/components/menuMotel';
-
 import './layout.scss';
 import AppFooter from './Footer';
 import AppHeader from './Header';
-const { Header, Content } = Layout;
+const { Content } = Layout;
 
 function Home() {
   return (
@@ -28,7 +27,7 @@ function Home() {
     //   }}
     // />
     <Redirect to="/home/nha-tro">
-      <Motel></Motel>
+      <Motel />
     </Redirect>
   );
 }
@@ -56,10 +55,10 @@ function ContentLayout() {
 
         <Col span={8}>
           <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <SearchOutlined
-              style={{ fontSize: 25, padding: '5px 20px 0 0' }}
-              title="Tìm kiếm bài viết"
-            />
+            <div id="wrap">
+              <input id="search" name="search" type="text" placeholder="Tìm kiếm" />
+              <input id="search_submit" value="Rechercher" type="submit" />
+            </div>
             <MenuMotel />
           </div>
         </Col>
@@ -68,7 +67,9 @@ function ContentLayout() {
       <div style={{ padding: '30px 60px 50px' }}>
         <Switch>
           <Route path="/home/nha-tro" component={Motel} />
-          <Route path="/home/thongke" component={Page2} />
+          <Route path="/home/thongke" component={PostInfor} />
+          <Route path="/home/bieudo" component />
+
           <Route path="/home/nha-tro-detail" component={MotelInfor} />
           <Route path="/home/nha-tro-favorite" component={MotelFavorite} />
           <Route extract path="/" component={Home} />
@@ -82,13 +83,13 @@ function AppLayout() {
   return (
     <div>
       <Layout style={{ minHeight: '100vh' }}>
-        <AppHeader></AppHeader>
+        <AppHeader />
 
         <Content style={{ background: '#ffffff', padding: '10px' }}>
           <ContentLayout />
         </Content>
 
-        <AppFooter></AppFooter>
+        <AppFooter />
       </Layout>
     </div>
   );

@@ -1,18 +1,11 @@
+import { PhoneOutlined, ArrowLeftOutlined, HeartFilled } from '@ant-design/icons';
+import { Button, Col, Row, Tooltip } from 'antd';
 import React, { Component } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './MotelInfor.css';
-import { Button, Col, Row, Tooltip } from 'antd';
-import {
-  HomeOutlined,
-  DollarCircleOutlined,
-  AreaChartOutlined,
-  PhoneOutlined,
-  HeartOutlined,
-  ArrowLeftOutlined,
-  HeartFilled
-} from '@ant-design/icons';
+
 const displayImage = [
   'https://react-slideshow.herokuapp.com/assets/images/slide_2.jpg',
   'https://react-slideshow.herokuapp.com/assets/images/slide_4.jpg',
@@ -26,25 +19,24 @@ export default class Motel extends Component {
       nav1: null,
       nav2: null,
       addFavourite: 0,
-      colorIcon: "blue",
-      notify: "Bấm để bỏ lưu tin"
+      colorIcon: 'blue',
+      notify: 'Bấm để bỏ lưu tin',
     };
   }
 
-  componentDidMount() {
+  componentDidMount() {}
+  render() {
     this.setState({
       nav1: this.slider1,
       nav2: this.slider2,
     });
-  }
-  render() {
     const styles = {
       containerStyle: {
         color: this.state.colorIcon,
-        fontSize: "20px",
-        marginLeft:"10px"
+        fontSize: '20px',
+        marginLeft: '10px',
       },
-      notify: this.state.notify
+      notify: this.state.notify,
     };
     return (
       <div style={{ width: '100%' }}>
@@ -56,19 +48,19 @@ export default class Motel extends Component {
                 this.props.history.goBack();
               }}
             />
-          }></Button>
+          }
+        />
 
         <Row>
           <Col span={18}>
             <div
               style={{
-               
                 backgroundColor: '#A0A0A0',
               }}>
               <Slider asNavFor={this.state.nav2} ref={(slider) => (this.slider1 = slider)}>
                 {displayImage.map((item) => (
                   <div>
-                    <img class="ParentImage" src={item}></img>
+                    <img className="ParentImage" src={item} />
                   </div>
                 ))}
               </Slider>
@@ -76,25 +68,24 @@ export default class Motel extends Component {
                 asNavFor={this.state.nav1}
                 ref={(slider) => (this.slider2 = slider)}
                 slidesToShow={3}
-                swipeToSlide={true}
-                focusOnSelect={true}
+                swipeToSlide
+                focusOnSelect
                 style={{ margin: '0px 30px 5px 30px' }}>
                 {displayImage.map((item) => (
                   <div>
-                    <img class="ChildImage" src={item}></img>
+                    <img className="ChildImage" src={item} />
                   </div>
                 ))}
               </Slider>
             </div>
             <div style={{ margin: '30px 0 0 0' }}>
               <div style={{ textAlign: 'left', fontWeight: 'bold', fontSize: '18px' }}>
-                CHO THUÊ PHÒNG ĐẸP VÀ RẺ NHẤT LOTTE Q7, ĐÃ NGHIỆM THU PCCC, GIÁ TỪ 3 TR, TÒA NHÀ 8
-                TẦNG MỚI XÂY
+                CHO THUÊ PHÒNG ĐẸP VÀ RẺ NHẤT LOTTE Q7, ĐÃ NGHIỆM THU PCCC, GIÁ TỪ 3 TR, TÒA NHÀ 8 TẦNG MỚI XÂY
               </div>
               <div style={{ width: '800px', textAlign: 'left' }}>
                 Dự án D2 Giảng Võ, Phố Giảng Võ, Phường Giảng Võ, Ba Đình, Hà Nội
               </div>
-              <div></div>
+              <div />
               <div>
                 <Row
                   style={{
@@ -113,26 +104,29 @@ export default class Motel extends Component {
                     <p style={{ fontWeight: 'bold', fontSize: '20px' }}>575 m2</p>
                   </Col>
                   <Col span={6} style={{}}>
-                    <div style={{ marginTop: '15%', fontWeight: 'bold', fontSize: '18px', cursor: "pointer" }}>
+                    <div style={{ marginTop: '15%', fontWeight: 'bold', fontSize: '18px', cursor: 'pointer' }}>
                       Lưu tin
-                      <Tooltip title={styles.notify} placement="bottom" >
-                        <HeartFilled style={styles.containerStyle} onClick={() => {
-                          this.setState({
-                            addFavourite: this.state.addFavourite + 1
-                          })
-                          if (this.state.addFavourite % 2 == 0) {
+                      <Tooltip title={styles.notify} placement="bottom">
+                        <HeartFilled
+                          style={styles.containerStyle}
+                          onClick={() => {
+                            const { addFavourite } = this.state;
                             this.setState({
-                              colorIcon: "",
-                              notify: "Bấm để lưu tin"
-                            })
-                          }
-                          else {
-                            this.setState({
-                              colorIcon: "blue",
-                              notify: "Bấm để bỏ lưu tin"
-                            })
-                          }
-                        }} />
+                              addFavourite: addFavourite + 1,
+                            });
+                            if (this.state.addFavourite % 2 === 0) {
+                              this.setState({
+                                colorIcon: '',
+                                notify: 'Bấm để lưu tin',
+                              });
+                            } else {
+                              this.setState({
+                                colorIcon: 'blue',
+                                notify: 'Bấm để bỏ lưu tin',
+                              });
+                            }
+                          }}
+                        />
                       </Tooltip>
                     </div>
                   </Col>

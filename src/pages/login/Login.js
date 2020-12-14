@@ -1,10 +1,11 @@
-import { Form, Input, Button, Checkbox, Row, Col } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { Form, Input, Button, Checkbox, Row, Col } from 'antd';
 import React from 'react';
 import './Login.scss';
 
 const Login = () => {
   const onFinish = (values) => {
+    // eslint-disable-next-line no-console
     console.log('Received values of form: ', values);
   };
 
@@ -34,11 +35,7 @@ const Login = () => {
                 message: 'Please input your Password!',
               },
             ]}>
-            <Input
-              prefix={<LockOutlined style={{ fontSize: '25px' }} />}
-              type="password"
-              placeholder="Password"
-            />
+            <Input prefix={<LockOutlined style={{ fontSize: '25px' }} />} type="password" placeholder="Password" />
           </Form.Item>
           <Form.Item style={{ display: 'flex', justifyContent: 'flex-end' }}>
             <Form.Item name="remember" valuePropName="checked" noStyle>
@@ -53,11 +50,7 @@ const Login = () => {
           <Form.Item>
             <Row>
               <Col span={8}>
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  className="login-form-button"
-                  style={{ alignItems: 'center' }}>
+                <Button type="primary" htmlType="submit" className="login-form-button" style={{ alignItems: 'center' }}>
                   Log in
                 </Button>
               </Col>

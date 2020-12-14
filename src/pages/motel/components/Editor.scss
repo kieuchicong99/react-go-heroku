@@ -1,0 +1,13 @@
+#editor {
+  border: 1px solid gainsboro !important;
+ 
+  .ant-col-16{
+    max-width: 100% !important;
+  }
+
+  .demo-editor{
+    height: 300px;
+    overflow-y: scroll;
+    padding: 10px;
+  }
+}

@@ -1,34 +1,25 @@
-import { Col, Row, Checkbox, Button, Tooltip } from 'antd';
-import ReactDOM from "react-dom"
+import { HomeOutlined, DollarCircleOutlined, AreaChartOutlined, PhoneOutlined, HeartFilled } from '@ant-design/icons';
+import { Col, Row, Button, Tooltip } from 'antd';
 import React, { Component } from 'react';
-import {
-  HomeOutlined,
-  DollarCircleOutlined,
-  AreaChartOutlined,
-  PhoneOutlined,
-  HeartFilled,
-  HeartOutlined
-} from '@ant-design/icons';
 import './MotelBrief.css';
-global.colorH = ""
+global.colorH = '';
 export default class MotelBrief extends Component {
   constructor(props) {
     super(props);
     this.state = {
       addFavourite: 0,
-      colorIcon: "blue",
-      notify: "Bấm để bỏ lưu tin"
-    }
-
+      colorIcon: 'blue',
+      notify: 'Bấm để bỏ lưu tin',
+    };
   }
   render() {
-    let data = this.props.itemdata;
+    const data = this.props.itemdata;
     const styles = {
       containerStyle: {
         color: this.state.colorIcon,
-        fontSize: "20px",
+        fontSize: '20px',
       },
-      notify: this.state.notify
+      notify: this.state.notify,
     };
     return (
       <div>
@@ -43,7 +34,8 @@ export default class MotelBrief extends Component {
           <Col span={5} style={{}}>
             <img
               src="https://file4.batdongsan.com.vn/crop/350x232/2020/11/29/20201129161227-1580_wm.jpg"
-              style={{ width: '98%', height: '99%', backgroundColor: 'red' }}></img>
+              style={{ width: '98%', height: '99%', backgroundColor: 'red' }}
+            />
           </Col>
           <Col span={19} style={{ display: 'flex', flexDirection: 'column' }}>
             <div
@@ -69,38 +61,37 @@ export default class MotelBrief extends Component {
               </div>
               <div style={{ margin: '2% 0 0 1%', textAlign: 'left' }}>{data.description}</div>
             </div>
-           <div style={{display:"flex"}}>
-               <Button type="primary" style={{ width: '30%', margin: '2% 0 0 30%' }}>
+            <div style={{ display: 'flex' }}>
+              <Button type="primary" style={{ width: '30%', margin: '2% 0 0 30%' }}>
                 Liên hệ
-              <PhoneOutlined style={{ marginLeft: '15%' }} />
+                <PhoneOutlined style={{ marginLeft: '15%' }} />
                 {data.phone}
-              </Button> 
-              <div class="icon-favourite" style={{ margin: "20px 0 0 250px" }}>
-
-                <Tooltip title={styles.notify} placement="bottom" >
-                  <HeartFilled style={styles.containerStyle} onClick={() => {
-                    this.setState({
-                      addFavourite: this.state.addFavourite + 1
-                    })
-                    if (this.state.addFavourite % 2 == 0) {
+              </Button>
+              <div className="icon-favourite" style={{ margin: '20px 0 0 250px' }}>
+                <Tooltip title={styles.notify} placement="bottom">
+                  <HeartFilled
+                    style={styles.containerStyle}
+                    onClick={() => {
+                      const { addFavourite } = this.state;
                       this.setState({
-                        colorIcon: "",
-                        notify: "Bấm để lưu tin"
-                      })
-                    }
-                    else {
-                      this.setState({
-                        colorIcon: "blue",
-                        notify: "Bấm để bỏ lưu tin"
-                      })
-                    }
-                  }} />
+                        addFavourite: addFavourite + 1,
+                      });
+                      if (this.state.addFavourite % 2 === 0) {
+                        this.setState({
+                          colorIcon: '',
+                          notify: 'Bấm để lưu tin',
+                        });
+                      } else {
+                        this.setState({
+                          colorIcon: 'blue',
+                          notify: 'Bấm để bỏ lưu tin',
+                        });
+                      }
+                    }}
+                  />
                 </Tooltip>
               </div>
             </div>
-
-
-
           </Col>
         </Row>
       </div>

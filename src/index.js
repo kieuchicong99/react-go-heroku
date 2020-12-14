@@ -1,21 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { Redirect } from 'react-router';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-import { Redirect } from 'react-router';
 import './index.css';
 import App from './App';
-import PageNotFound from './pages/PageNotFound';
 import Login from './pages/login/Login';
 import Register from './pages/login/Register';
-
 import store from './redux/store';
 import * as serviceWorker from './serviceWorker';
 
 class Root extends React.Component {
   render() {
-    console.log('store', store);
+    // console.log('store', store);
     return (
       <Provider store={store}>
         <BrowserRouter basename="/">
@@ -26,7 +24,7 @@ class Root extends React.Component {
 
             {/* <Route path="/*" component={PageNotFound} /> */}
             <Redirect to="/home">
-              <App></App>
+              <App />
             </Redirect>
           </Switch>
         </BrowserRouter>

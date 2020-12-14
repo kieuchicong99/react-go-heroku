@@ -1,19 +1,7 @@
-import React, { useState } from 'react';
-import {
-  Form,
-  Input,
-  Tooltip,
-  Cascader,
-  Select,
-  Row,
-  Col,
-  Checkbox,
-  Button,
-  AutoComplete,
-} from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
+import { Form, Input, Tooltip, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
+import React, { useState } from 'react';
 const { Option } = Select;
-const AutoCompleteOption = AutoComplete.Option;
 const residences = [
   {
     value: 'zhejiang',
@@ -83,6 +71,7 @@ const Register = () => {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
+    // eslint-disable-next-line no-console
     console.log('Received values of form: ', values);
   };
 
@@ -91,8 +80,7 @@ const Register = () => {
       <Select
         style={{
           width: 70,
-        }}
-      >
+        }}>
         <Option value="84">+84</Option>
         <Option value="87">+87</Option>
       </Select>
@@ -113,7 +101,8 @@ const Register = () => {
     value: website,
   }));
   return (
-    <Form style={{marginTop:"5%", width:"60%"}}
+    <Form
+      style={{ marginTop: '5%', width: '60%' }}
       {...formItemLayout}
       form={form}
       name="register"
@@ -122,8 +111,7 @@ const Register = () => {
         residence: ['zhejiang', 'hangzhou', 'xihu'],
         prefix: '86',
       }}
-      scrollToFirstError
-    >
+      scrollToFirstError>
       <Form.Item
         name="email"
         label="E-mail"
@@ -136,8 +124,7 @@ const Register = () => {
             required: true,
             message: 'Please input your E-mail!',
           },
-        ]}
-      >
+        ]}>
         <Input />
       </Form.Item>
 
@@ -150,8 +137,7 @@ const Register = () => {
             message: 'Please input your password!',
           },
         ]}
-        hasFeedback
-      >
+        hasFeedback>
         <Input.Password />
       </Form.Item>
 
@@ -166,16 +152,16 @@ const Register = () => {
             message: 'Please confirm your password!',
           },
           ({ getFieldValue }) => ({
-            validator(rule, value) {
+            validator(value) {
               if (!value || getFieldValue('password') === value) {
                 return Promise.resolve();
               }
 
+              // eslint-disable-next-line prefer-promise-reject-errors
               return Promise.reject('The two passwords that you entered do not match!');
             },
           }),
-        ]}
-      >
+        ]}>
         <Input.Password />
       </Form.Item>
 
@@ -195,8 +181,7 @@ const Register = () => {
             message: 'Please input your nickname!',
             whitespace: true,
           },
-        ]}
-      >
+        ]}>
         <Input />
       </Form.Item>
 
@@ -209,8 +194,7 @@ const Register = () => {
             required: true,
             message: 'Please select your habitual residence!',
           },
-        ]}
-      >
+        ]}>
         <Cascader options={residences} />
       </Form.Item>
 
@@ -222,8 +206,7 @@ const Register = () => {
             required: true,
             message: 'Please input your phone number!',
           },
-        ]}
-      >
+        ]}>
         <Input
           addonBefore={prefixSelector}
           style={{
@@ -240,8 +223,7 @@ const Register = () => {
             required: true,
             message: 'Please input website!',
           },
-        ]}
-      >
+        ]}>
         <AutoComplete options={websiteOptions} onChange={onWebsiteChange} placeholder="website">
           <Input />
         </AutoComplete>
@@ -258,8 +240,7 @@ const Register = () => {
                   required: true,
                   message: 'Please input the captcha you got!',
                 },
-              ]}
-            >
+              ]}>
               <Input />
             </Form.Item>
           </Col>
@@ -274,13 +255,12 @@ const Register = () => {
         valuePropName="checked"
         rules={[
           {
-            validator: (_, value) =>
-              value ? Promise.resolve() : Promise.reject('Should accept agreement'),
+            // eslint-disable-next-line prefer-promise-reject-errors
+            validator: (_, value) => (value ? Promise.resolve() : Promise.reject('Should accept agreement')),
           },
         ]}
-        {...tailFormItemLayout}
-      >
-        <Checkbox >
+        {...tailFormItemLayout}>
+        <Checkbox>
           I have read the <a href="">agreement</a>
         </Checkbox>
       </Form.Item>

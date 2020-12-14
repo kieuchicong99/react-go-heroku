@@ -21,6 +21,7 @@ const validateMessages = {
 
 const FormPost = () => {
   const onFinish = (values) => {
+    // eslint-disable-next-line no-console
     console.log(values);
   };
 

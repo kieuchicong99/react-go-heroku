@@ -1,10 +1,10 @@
 import axios from 'axios';
 
-const parseParams = params => {
+const parseParams = (params) => {
   const keys = Object.keys(params);
   let options = '';
 
-  keys.forEach(key => {
+  keys.forEach((key) => {
     const isParamTypeObject = typeof params[key] === 'object';
 
     if (!isParamTypeObject && typeof params[key] !== 'undefined' && params[key] !== '') {
@@ -12,7 +12,7 @@ const parseParams = params => {
     }
 
     if (isParamTypeObject && params[key] != null && params[key].length >= 0) {
-      params[key].forEach(element => {
+      params[key].forEach((element) => {
         options += `${key}=${element}&`;
       });
     }
@@ -29,7 +29,7 @@ export const apiCall = async ({ endPoint, method, payload, headers, params }) =>
       headers,
       data: payload,
       params,
-      paramsSerializer: params => parseParams(params),
+      paramsSerializer: (params) => parseParams(params),
     });
     return {
       response: result,
@@ -51,12 +51,12 @@ export const apiCallPromise = ({ endPoint, method, payload, headers, params }) =
     data: payload,
     params,
   })
-    .then(result => ({
+    .then((result) => ({
       response: result,
       error: null,
       // eslint-disable-next-line prefer-promise-reject-errors
     }))
-    .catch(e =>
+    .catch((e) =>
       // eslint-disable-next-line prefer-promise-reject-errors
       Promise.reject({
         response: null,
