@@ -56,7 +56,7 @@ export default class MenuMotel extends Component {
     return (
       <Dropdown overlay={menu} trigger={['click']}>
         <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
-          <HeartOutlined style={{ fontSize: 30, paddingRight: '50px' }} />
+          <HeartOutlined style={{ fontSize: 30, paddingRight: '20px' }} />
         </a>
       </Dropdown>
     );

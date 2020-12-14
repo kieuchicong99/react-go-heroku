@@ -24,12 +24,14 @@ export default class Motel extends Component {
     };
   }
 
-  componentDidMount() {}
-  render() {
+  componentDidMount() {
+    // eslint-disable-next-line react/no-did-mount-set-state
     this.setState({
       nav1: this.slider1,
       nav2: this.slider2,
     });
+  }
+  render() {
     const styles = {
       containerStyle: {
         color: this.state.colorIcon,
