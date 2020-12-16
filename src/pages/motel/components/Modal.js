@@ -1,6 +1,6 @@
-import { UploadOutlined } from '@ant-design/icons';
-import { Modal, Button, Upload, Form, Input, InputNumber, DatePicker, Space, Col, Row } from 'antd';
+import { Modal, Button, Form, Input, InputNumber, DatePicker, Space, Col, Row } from 'antd';
 import React, { useState } from 'react';
+
 import UploadImage from '../../../components/Upload';
 import EditorInformation from './Editor';
 
@@ -50,7 +50,6 @@ const ModalMenu = (props) => {
               </Col>
               <Col span={21}>
                 <UploadImage />
-              
               </Col>
             </Row>
           </div>

@@ -16,6 +16,7 @@
     "react-app-rewired": "^2.1.6",
     "react-dom": "^16.8.6",
     "react-draft-wysiwyg": "^1.14.5",
+    "react-dragula": "^1.1.17",
     "react-redux": "^7.2.2",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",

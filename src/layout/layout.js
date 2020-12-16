@@ -93,7 +93,7 @@ function AppLayout() {
   return (
     <div>
       <Layout style={{ minHeight: '100vh' }}>
-        <AppHeader/>
+        <AppHeader />
 
         <Content style={{ background: '#ffffff', padding: '10px' }}>
           <ContentLayout />
