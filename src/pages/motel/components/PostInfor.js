@@ -236,7 +236,6 @@ class PostInfor extends React.Component {
       <div>
         <ModalMenu handleAdds={() => this.handleAdd()} name="Thêm bài đăng" button="Add a motel" />
         <Table
-          style={{ marginTop: '10px' }}
           components={components}
           rowClassName={() => 'editable-row'}
           bordered

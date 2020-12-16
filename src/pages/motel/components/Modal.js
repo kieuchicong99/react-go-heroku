@@ -1,7 +1,7 @@
 import { UploadOutlined } from '@ant-design/icons';
 import { Modal, Button, Upload, Form, Input, InputNumber, DatePicker, Space, Col, Row } from 'antd';
 import React, { useState } from 'react';
-
+import UploadImage from '../../../components/Upload';
 import EditorInformation from './Editor';
 
 import './Modal.scss';
@@ -49,14 +49,8 @@ const ModalMenu = (props) => {
                 <span>{'   '}Ảnh: </span>
               </Col>
               <Col span={21}>
-                <Upload
-                  style={{ paddingLeft: '125px' }}
-                  action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                  listType="picture"
-                  //defaultFileList={[...fileList]}
-                >
-                  <Button icon={<UploadOutlined />}>Upload</Button>
-                </Upload>
+                <UploadImage />
+              
               </Col>
             </Row>
           </div>

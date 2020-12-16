@@ -37,7 +37,7 @@ function Home() {
 function ContentLayout() {
   const history = useHistory();
   return (
-    <div style={{ padding: '0px 30px' }}>
+    <div style={{ padding: '10px 30px' }}>
       <div
         className="page-title"
         style={{
@@ -93,7 +93,7 @@ function AppLayout() {
   return (
     <div>
       <Layout style={{ minHeight: '100vh' }}>
-        <AppHeader />
+        <AppHeader/>
 
         <Content style={{ background: '#ffffff', padding: '10px' }}>
           <ContentLayout />

@@ -52,7 +52,6 @@ input[type='file'] {
   position: relative;
   top: 0px;
   cursor: pointer;
-  z-index: 1;
   border-radius: 2px;
   display: flex;
   align-items: center;
@@ -68,6 +67,7 @@ input[type='file'] {
 }
 #deputy{
   width: 425px;
+  margin-left: 10px;
 }
 .title-frame{
   text-align: center;
