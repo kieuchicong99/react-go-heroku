@@ -5,7 +5,6 @@ import ManagePost from "./component/managePost"
 import Information from "./component/personalInformation"
 import Statistic from "./component/statictis"
 import Notifycation from "./component/notifycation"
-
 import MenuSelect from "./Menu"
 import UploadImage from '../../components/Upload';
 export default class Profile extends Component {

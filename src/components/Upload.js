@@ -8,7 +8,7 @@ var dragula = require('react-dragula');
 
 export default class UploadImage extends Component {
   state = {
-    dataImages: [``],
+    dataImages: [],
   };
 
   upload = () => {
@@ -29,37 +29,36 @@ export default class UploadImage extends Component {
       }
     });
   };
-
   componentDidMount = () => {
     dragula([document.getElementById("left"), document.getElementById("main"), document.getElementById("deputy")])
 
   }
   render() {
-    //dragula([document.getElementById("left"), document.getElementById("main"), document.getElementById("deputy")])
-      
     return (
       <div>
-        <div id="left">
+        <div id="left" >
           {this.state.dataImages?.map((item) => (
-            <img src={item} width={100} height={100} />
+            <img src={item} width={100} height={100} class="image-frame-choice"/>
           ))}
         </div>
-        <form name="uploadForm" style={{display:"flex", marginTop:"10px"}}>
+        <form name="uploadForm" style={{ display: "flex", marginTop: "10px" }}>
           <div>
             <label class="custom-file-upload">
               Choose file
               <input id="file-upload" type="file" name="myFiles" multiple={false} />
             </label>
           </div>
-          <div style={{marginLeft:"10px"}}>
+          <div style={{ marginLeft: "10px" }}>
             <Button icon={<UploadOutlined />} onClick={() => {
               this.upload();
             }}>Upload</Button>
           </div>
         </form>
-        <div style={{display:"flex", marginTop:"10px"}}>
+        <div style={{ display: "flex", marginTop: "10px" }}>
           <div>
-            <div id="main" class="image-frame"></div>
+            <div id="main" class="image-frame">
+              
+            </div>
             <p class="title-frame">Ảnh chính</p>
           </div>
           <div>
@@ -67,6 +66,10 @@ export default class UploadImage extends Component {
             <p class="title-frame">Ảnh bổ sung</p>
           </div>
         </div>
+        <Button onClick={() =>{
+           this.props.call(document.querySelector("#main .image-frame-choice").src)
+        }} 
+     >oke</Button>
       </div>
     );
   }

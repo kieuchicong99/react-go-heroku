@@ -72,7 +72,7 @@ export default class Motel extends Component {
               <MotelBrief itemdata={item} log={this.log} />
             ))}
           </Col>
-          <Col span={6}>
+          <Col span={6} style={{marginTop:'20px'}}>
             <Filter />
           </Col>
         </Row>
