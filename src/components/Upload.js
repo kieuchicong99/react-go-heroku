@@ -10,7 +10,7 @@ var dragula = require('react-dragula');
 
 export default class UploadImage extends Component {
   state = {
-    dataImages: [``],
+    dataImages: [],
   };
 
   upload = () => {
@@ -31,18 +31,15 @@ export default class UploadImage extends Component {
       }
     });
   };
-
   componentDidMount = () => {
     dragula([document.getElementById('left'), document.getElementById('main'), document.getElementById('deputy')]);
   };
   render() {
-    //dragula([document.getElementById("left"), document.getElementById("main"), document.getElementById("deputy")])
-
     return (
       <div>
         <div id="left">
           {this.state.dataImages?.map((item) => (
-            <img src={item} width={100} height={100} />
+            <img src={item} width={100} height={100} className="image-frame-choice" />
           ))}
         </div>
         <form name="uploadForm" style={{ display: 'flex', marginTop: '10px' }}>
@@ -72,6 +69,12 @@ export default class UploadImage extends Component {
             <p className="title-frame">Ảnh bổ sung</p>
           </div>
         </div>
+        <Button
+          onClick={() => {
+            this.props.call(document.querySelector('#main .image-frame-choice').src);
+          }}>
+          oke
+        </Button>
       </div>
     );
   }

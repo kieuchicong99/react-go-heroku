@@ -5,13 +5,14 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './MotelInfor.css';
-
 const displayImage = [
   'https://react-slideshow.herokuapp.com/assets/images/slide_2.jpg',
   'https://react-slideshow.herokuapp.com/assets/images/slide_4.jpg',
   'https://react-slideshow.herokuapp.com/assets/images/slide_5.jpg',
   'https://react-slideshow.herokuapp.com/assets/images/slide_7.jpg',
 ];
+const axios = require('axios').default;
+let motel;
 export default class Motel extends Component {
   constructor(props) {
     super(props);
@@ -21,15 +22,30 @@ export default class Motel extends Component {
       addFavourite: 0,
       colorIcon: 'blue',
       notify: 'Bấm để bỏ lưu tin',
+      dataSource: {}
     };
+    motel = this;
   }
-
   componentDidMount() {
-    // eslint-disable-next-line react/no-did-mount-set-state
     this.setState({
       nav1: this.slider1,
       nav2: this.slider2,
     });
+    axios.get(`/api/v1/motel/${motel.context}`, {
+    })
+      .then(function (response) {
+        console.log(response)
+        motel.setState({
+          dataSource: response.data.Data,
+        })
+        console.log(motel.context.code)
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+      .then(function () {
+      });
+
   }
   render() {
     const styles = {
@@ -41,6 +57,7 @@ export default class Motel extends Component {
       notify: this.state.notify,
     };
     return (
+
       <div style={{ width: '100%' }}>
         <Button
           icon={
@@ -48,6 +65,7 @@ export default class Motel extends Component {
               style={{ fontSize: '25px' }}
               onClick={() => {
                 this.props.history.goBack();
+
               }}
             />
           }
@@ -82,12 +100,12 @@ export default class Motel extends Component {
             </div>
             <div style={{ margin: '30px 0 0 0' }}>
               <div style={{ textAlign: 'left', fontWeight: 'bold', fontSize: '18px' }}>
-                CHO THUÊ PHÒNG ĐẸP VÀ RẺ NHẤT LOTTE Q7, ĐÃ NGHIỆM THU PCCC, GIÁ TỪ 3 TR, TÒA NHÀ 8 TẦNG MỚI XÂY
+                Cho thuê nhà trọ
               </div>
               <div style={{ width: '800px', textAlign: 'left' }}>
-                Dự án D2 Giảng Võ, Phố Giảng Võ, Phường Giảng Võ, Ba Đình, Hà Nội
+                Hoàng Quốc Việt, Cầu Giấy
               </div>
-              <div />
+
               <div>
                 <Row
                   style={{
@@ -99,7 +117,7 @@ export default class Motel extends Component {
                   }}>
                   <Col span={6} style={{ textAlign: 'left' }}>
                     <p>Mức giá:</p>
-                    <p style={{ fontWeight: 'bold', fontSize: '20px' }}>Thỏa thuận</p>
+                    <p style={{ fontWeight: 'bold', fontSize: '20px' }}>20 USD</p>
                   </Col>
                   <Col span={12} style={{ textAlign: 'left' }}>
                     <p>Diện tích:</p>
@@ -108,7 +126,7 @@ export default class Motel extends Component {
                   <Col span={6} style={{}}>
                     <div style={{ marginTop: '15%', fontWeight: 'bold', fontSize: '18px', cursor: 'pointer' }}>
                       Lưu tin
-                      <Tooltip title={styles.notify} placement="bottom">
+                       <Tooltip title={styles.notify} placement="bottom">
                         <HeartFilled
                           style={styles.containerStyle}
                           onClick={() => {
@@ -163,6 +181,11 @@ export default class Motel extends Component {
           </Col>
         </Row>
       </div>
+
     );
+
   }
 }
+
+
+
