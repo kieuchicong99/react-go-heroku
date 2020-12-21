@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Modal, Button, Form, Input, InputNumber, DatePicker, Space, Col, Row } from 'antd';
 import React, { useState } from 'react';
 
@@ -88,7 +89,7 @@ const ModalMenu = (props) => {
   };
 
   const handleEvent = () => {
-    if (props.event == 'edit') handleEdit();
+    if (props.event === 'edit') handleEdit();
     else handleAdd();
   };
   return (

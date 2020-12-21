@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable max-len */
 import { Table, Button, Popconfirm, Form, Tooltip } from 'antd';
 import React, { useContext, useState, useEffect, useRef } from 'react';
@@ -5,7 +6,7 @@ import React, { useContext, useState, useEffect, useRef } from 'react';
 import './PostInfor.css';
 import ModalMenu from './Modal';
 import SwitchExample from './Switch';
-import Motel from "./MotelInfor"
+
 const EditableContext = React.createContext();
 const axios = require('axios').default;
 
@@ -54,15 +55,15 @@ const EditableCell = ({ title, editable, children, dataIndex, record, handleSave
         ]}
       />
     ) : (
-        <div
-          className="editable-cell-value-wrap"
-          style={{
-            paddingRight: 24,
-          }}
-          onClick={toggleEdit}>
-          {children}
-        </div>
-      );
+      <div
+        className="editable-cell-value-wrap"
+        style={{
+          paddingRight: 24,
+        }}
+        onClick={toggleEdit}>
+        {children}
+      </div>
+    );
   }
 
   return <td {...restProps}>{childNode}</td>;
@@ -73,8 +74,8 @@ class PostInfor extends React.Component {
     super(props);
     this.state = {
       dataSource: [],
-      motelCode: "",
-      deletedMotel: {}
+      motelCode: '',
+      deletedMotel: {},
     };
 
     motel = this;
@@ -89,7 +90,7 @@ class PostInfor extends React.Component {
               <img
                 style={{ width: '100px', height: '80px', cursor: 'pointer' }}
                 onClick={() => {
-                  window.location = "/home/nha-tro-detail"
+                  window.location = '/home/nha-tro-detail';
                 }}
                 src={record.Image}
               />
@@ -110,7 +111,7 @@ class PostInfor extends React.Component {
       {
         width: '1%',
         title: 'Giá tiền',
-        dataIndex: 'Cost'
+        dataIndex: 'Cost',
       },
       {
         width: '10%',
@@ -127,22 +128,23 @@ class PostInfor extends React.Component {
         width: '5%',
         dataIndex: 'operation',
         render: (text, record) => (
-          <Popconfirm title="Sure to delete?" onConfirm={() => {
-            global.value = record.MotelCode
-            this.handleEdit();
-          }}>
+          <Popconfirm
+            title="Sure to delete?"
+            onConfirm={() => {
+              global.value = record.MotelCode;
+              this.handleEdit();
+            }}>
             <Button
               style={{
                 background: '#1890ff',
                 borderColor: '#1890ff',
                 textShadow: '-1px 0 rgba(0, 0, 0, 0.12)',
                 color: 'white',
-              }}
-            >
+              }}>
               Delete
             </Button>
           </Popconfirm>
-        )
+        ),
       },
       {
         title: 'Sửa',
@@ -160,60 +162,52 @@ class PostInfor extends React.Component {
         ),
       },
     ];
-
   }
   returnJson = () => {
-    let dataSource = {
-      "Address": "",
-      "Cost": 0,
-      "Description": "",
-      "Image": "",
-      "Images": [
-        ""
-      ],
-      "Latitude": "21.0286755",
-      "Longitude": "105.7558943,13z",
-      "Status": true,
-      "Tags": [
-        "hanoi"
-      ],
-      "Title": ""
-    }
+    const dataSource = {
+      Address: '',
+      Cost: 0,
+      Description: '',
+      Image: '',
+      Images: [''],
+      Latitude: '21.0286755',
+      Longitude: '105.7558943,13z',
+      Status: true,
+      Tags: ['hanoi'],
+      Title: '',
+    };
     dataSource.Status = false;
     return dataSource;
-  }
-  componentDidMount = () => {//lấy danh sách nhà trọ
-    axios.get('https://go-react-heroku.herokuapp.com/api/v1/motel', {
-    })
-      .then(function (response) {
-        console.log(response)
-        motel.setState({
-          dataSource: Object.values(response.data.Data),
-        })
-        motel.setState({ dataSource: motel.state.dataSource.filter(item => item.Status == true) });
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
-      .then(function () {
-      });
-
-  }
-  handleEdit = () => {// sửa nhà trọ theo id
-    axios.patch(
-      `/api/v1/motel/${global.value}`,
-      this.returnJson()
-    )
+  };
+  componentDidMount = () => {
+    //lấy danh sách nhà trọ
+    axios
+      .get('https://go-react-heroku.herokuapp.com/api/v1/motel', {})
       .then(function (response) {
         console.log(response);
-        motel.componentDidMount()
+        motel.setState({
+          dataSource: Object.values(response.data.Data),
+        });
+        motel.setState({ dataSource: motel.state.dataSource.filter((item) => item.Status === true) });
+      })
+      .catch(function (error) {
+        console.log(error);
+      })
+      .then(function () {});
+  };
+  handleEdit = () => {
+    // sửa nhà trọ theo id
+    axios
+      .patch(`/api/v1/motel/${global.value}`, this.returnJson())
+      .then(function (response) {
+        console.log(response);
+        motel.componentDidMount();
       })
 
       .catch(function (error) {
         console.log(error);
       });
-  }
-
+  };
 
   render() {
     const { dataSource } = this.state;
@@ -247,11 +241,11 @@ class PostInfor extends React.Component {
           rowClassName={() => 'editable-row'}
           bordered
           dataSource={dataSource}
-          columns={columns} />
+          columns={columns}
+        />
       </div>
     );
   }
 }
 
 export default PostInfor;
-

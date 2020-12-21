@@ -1,7 +1,10 @@
+/* eslint-disable react/no-did-mount-set-state */
+/* eslint-disable no-console */
 import { PhoneOutlined, ArrowLeftOutlined, HeartFilled } from '@ant-design/icons';
 import { Button, Col, Row, Tooltip } from 'antd';
 import React, { Component } from 'react';
 import Slider from 'react-slick';
+
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './MotelInfor.css';
@@ -22,7 +25,7 @@ export default class Motel extends Component {
       addFavourite: 0,
       colorIcon: 'blue',
       notify: 'Bấm để bỏ lưu tin',
-      dataSource: {}
+      dataSource: {},
     };
     motel = this;
   }
@@ -31,21 +34,19 @@ export default class Motel extends Component {
       nav1: this.slider1,
       nav2: this.slider2,
     });
-    axios.get(`/api/v1/motel/${motel.context}`, {
-    })
+    axios
+      .get(`/api/v1/motel/${motel.context}`, {})
       .then(function (response) {
-        console.log(response)
+        console.log(response);
         motel.setState({
           dataSource: response.data.Data,
-        })
-        console.log(motel.context.code)
+        });
+        console.log(motel.context.code);
       })
       .catch(function (error) {
         console.log(error);
       })
-      .then(function () {
-      });
-
+      .then(function () {});
   }
   render() {
     const styles = {
@@ -57,7 +58,6 @@ export default class Motel extends Component {
       notify: this.state.notify,
     };
     return (
-
       <div style={{ width: '100%' }}>
         <Button
           icon={
@@ -65,7 +65,6 @@ export default class Motel extends Component {
               style={{ fontSize: '25px' }}
               onClick={() => {
                 this.props.history.goBack();
-
               }}
             />
           }
@@ -99,12 +98,8 @@ export default class Motel extends Component {
               </Slider>
             </div>
             <div style={{ margin: '30px 0 0 0' }}>
-              <div style={{ textAlign: 'left', fontWeight: 'bold', fontSize: '18px' }}>
-                Cho thuê nhà trọ
-              </div>
-              <div style={{ width: '800px', textAlign: 'left' }}>
-                Hoàng Quốc Việt, Cầu Giấy
-              </div>
+              <div style={{ textAlign: 'left', fontWeight: 'bold', fontSize: '18px' }}>Cho thuê nhà trọ</div>
+              <div style={{ width: '800px', textAlign: 'left' }}>Hoàng Quốc Việt, Cầu Giấy</div>
 
               <div>
                 <Row
@@ -126,7 +121,7 @@ export default class Motel extends Component {
                   <Col span={6} style={{}}>
                     <div style={{ marginTop: '15%', fontWeight: 'bold', fontSize: '18px', cursor: 'pointer' }}>
                       Lưu tin
-                       <Tooltip title={styles.notify} placement="bottom">
+                      <Tooltip title={styles.notify} placement="bottom">
                         <HeartFilled
                           style={styles.containerStyle}
                           onClick={() => {
@@ -181,11 +176,6 @@ export default class Motel extends Component {
           </Col>
         </Row>
       </div>
-
     );
-
   }
 }
-
-
-

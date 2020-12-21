@@ -1,4 +1,4 @@
-import { Col, Row } from 'antd';
+import { Col } from 'antd';
 import React, { Component } from 'react';
 
 import MenuSelect from './Menu';
@@ -8,7 +8,7 @@ import Notifycation from './component/notifycation';
 import Information from './component/personalInformation';
 import Statistic from './component/statictis';
 
-export default class Profile extends Component {
+export default class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -42,7 +42,7 @@ export default class Profile extends Component {
 
     return (
       <div>
-        <Row>
+        <div style={{ display: 'flex' }}>
           <Col span={6}>
             <div
               style={{
@@ -59,10 +59,8 @@ export default class Profile extends Component {
               <MenuSelect index={this.callbackFunction} />
             </div>
           </Col>
-          <Col span={17} style={{ marginLeft: '10px' }}>
-            {screen}
-          </Col>
-        </Row>
+          <Col span={18}>{screen}</Col>
+        </div>
       </div>
     );
   }

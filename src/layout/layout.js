@@ -10,7 +10,6 @@ import MotelFavorite from '../pages/motel/components/MotelFavorite';
 import MotelInfor from '../pages/motel/components/MotelInfor';
 import PostInfor from '../pages/motel/components/PostInfor';
 import MenuMotel from '../pages/motel/components/menuMotel';
-import Profile from '../pages/profile/Profile';
 import './layout.scss';
 import AppFooter from './Footer';
 import AppHeader from './Header';
@@ -66,7 +65,7 @@ function ContentLayout() {
             <UserOutlined
               style={{ fontSize: '30px' }}
               onClick={() => {
-                history.push('/home/profile');
+                history.push('/dashboard');
               }}
             />
           </div>
@@ -78,7 +77,6 @@ function ContentLayout() {
           <Route path="/home/nha-tro" component={Motel} />
           <Route path="/home/thongke" component={PostInfor} />
           <Route path="/home/bieudo" component />
-          <Route path="/home/profile" component={Profile} />
 
           <Route path="/home/nha-tro-detail" component={MotelInfor} />
           <Route path="/home/nha-tro-favorite" component={MotelFavorite} />
