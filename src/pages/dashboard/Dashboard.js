@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
 import MenuSelect from './Menu';
-import ChangePassword from './component/changePassword';
-import Information from './component/information';
-import ManagePost from './component/managePost';
-import Notifycation from './component/notifycation';
-import Statistic from './component/statictis';
+import Information from './container/infomation/information';
+import ManagePost from './container/mangePost/managePost';
+import Notification from './container/notification/notification';
+import Statistic from './container/statistic/statistic';
+import ManageUser from './container/user/manageUser';
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -24,11 +24,11 @@ export default class Dashboard extends Component {
           <div style={{ width: '100%', background: '#f0f2f5' }}>
             <Route path="/dashboard/profile" component={Information} />
             <Route path="/dashboard/motel-post" component={ManagePost} />
-            <Route path="/dashboard/user" component={ChangePassword} />
+            <Route path="/dashboard/user" component={ManageUser} />
 
-            <Route path="/dashboard/notification" component={Notifycation} />
-            <Route path="/dashboard/static" component={Statistic} />
-            <Redirect to="/dashboard/profile" />
+            <Route path="/dashboard/notification" component={Notification} />
+            <Route path="/dashboard/statistic" component={Statistic} />
+            <Redirect to="/dashboard/user" />
           </div>
         </div>
       </div>

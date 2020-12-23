@@ -1,4 +1,3 @@
-import { DesktopOutlined, ContainerOutlined, UserOutlined, NotificationOutlined, EyeOutlined } from '@ant-design/icons';
 import { Menu, Layout } from 'antd';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -36,7 +35,7 @@ export default class MenuSelect extends React.Component {
     const { collapsed } = this.state;
     return (
       <Sider
-        style={{ background: '#001529', minHeight: '200vh' }}
+        style={{ background: '#001529', minHeight: '200vh', position: 'sticky', top: '0' }}
         collapsible
         onCollapse={this.onCollapse}
         collapsed={collapsed}

@@ -1,21 +1,20 @@
 import { PageHeader } from 'antd';
 import React, { Component } from 'react';
 
-import Info from './info';
-export default class Information extends Component {
+export default class Notifycation extends Component {
   render() {
     return (
-      <div style={{ height: '100%' }}>
+      <div>
         <PageHeader
-          style={{ border: ' 1px solid #f0f0f0', background: 'white' }}
-          title="THÔNG TIN CÁ NHÂN"
+          style={{ border: ' 1px solid #f0f0f0', background: 'white', position: 'sticky', top: '0', zIndex: 10 }}
+          title="QUẢN LÍ THÔNG BÁO"
           onBack={() => window.history.back()}
           avatar={{
             src: 'https://avatars1.githubusercontent.com/u/8186664?s=460&v=4',
           }}
         />
         <div style={{ padding: '20px' }}>
-          <Info />
+          <div style={{ background: 'white', minHeight: '600px', padding: '10px' }}>Xem thông báo</div>
         </div>
       </div>
     );

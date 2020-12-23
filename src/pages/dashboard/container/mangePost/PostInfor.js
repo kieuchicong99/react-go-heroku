@@ -4,8 +4,8 @@ import { Table, Button, Popconfirm, Form, Tooltip } from 'antd';
 import React, { useContext, useState, useEffect, useRef } from 'react';
 
 import './PostInfor.css';
-import ModalMenu from './Modal';
-import SwitchExample from './Switch';
+import ModalMenu from '../../../motel/components/Modal';
+import SwitchExample from '../../../motel/components/Switch';
 
 const EditableContext = React.createContext();
 const axios = require('axios').default;

@@ -4,7 +4,6 @@ import {
   DesktopOutlined,
   NotificationOutlined,
   BarChartOutlined,
-  EyeOutlined,
   HeartOutlined,
   CreditCardOutlined,
 } from '@ant-design/icons';
@@ -36,8 +35,8 @@ export default {
       content: 'Quản lý thông báo',
     },
     {
-      key: 'static',
-      to: '/dashboard/static',
+      key: 'statistic',
+      to: '/dashboard/statistic',
       icon: BarChartOutlined,
       content: 'Thống kê',
     },
@@ -84,8 +83,8 @@ export default {
       content: 'Quản lý thông báo',
     },
     {
-      key: 'static',
-      to: '/dashboard/static',
+      key: 'statistic',
+      to: '/dashboard/statistic',
       icon: BarChartOutlined,
       content: 'Thống kê',
     },

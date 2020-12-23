@@ -11,11 +11,11 @@ const tailLayout = {
 };
 export default class ChangeInfo extends Component {
   onFinish = (values) => {
-    console.log('Success:', values);
+    // console.log('Success:', values);
   };
 
   onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    // console.log('Failed:', errorInfo);
   };
 
   render() {

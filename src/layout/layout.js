@@ -8,7 +8,6 @@ import logo from '../assets/logo.webp';
 import Motel from '../pages/motel/Motel';
 import MotelFavorite from '../pages/motel/components/MotelFavorite';
 import MotelInfor from '../pages/motel/components/MotelInfor';
-import PostInfor from '../pages/motel/components/PostInfor';
 import MenuMotel from '../pages/motel/components/menuMotel';
 import './layout.scss';
 import AppFooter from './Footer';
@@ -17,16 +16,6 @@ const { Content } = Layout;
 
 function Home() {
   return (
-    // <img
-    //   src={bg}
-    //   style={{
-    //     width: '100%',
-    //     height: 'auto',
-    //     backgroundPosition: 'center',
-    //     backgroundRepeat: 'no-repeat',
-    //     backgroundSize: 'cover',
-    //   }}
-    // />
     <Redirect to="/home/nha-tro">
       <Motel />
     </Redirect>
@@ -65,7 +54,6 @@ function ContentLayout() {
             <UserOutlined
               style={{ fontSize: '30px' }}
               onClick={() => {
-                console.log('hello');
                 history.push('/dashboard');
               }}
             />
@@ -76,7 +64,7 @@ function ContentLayout() {
       <div style={{ padding: '30px 60px 50px' }}>
         <Switch>
           <Route path="/home/nha-tro" component={Motel} />
-          <Route path="/home/thongke" component={PostInfor} />
+          <Route path="/home/thongke" component={<></>} />
           <Route path="/home/bieudo" component />
 
           <Route path="/home/nha-tro-detail" component={MotelInfor} />
