@@ -1,14 +1,13 @@
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { Form, Input, Button, Checkbox, Row, Col, notification } from 'antd';
 import React, { Component } from 'react';
+
 import { API_URLS } from '../../configs/api';
 import { apiCall } from '../../utilities/api';
 import './Login.scss';
 
-
 class Login extends Component {
   insertUser = async (payload, meta) => {
-   
     const api = API_URLS.USER.login(payload);
     const { response, error } = await apiCall({ ...api, payload });
     if (!error && (response.status === 200 || response.status === 201)) {
@@ -22,36 +21,28 @@ class Login extends Component {
   };
 
   OnClickUpdateSubmit = (value) => {
-
     //console.log("form value: ", value)
-    this.insertUser(
-      value,
-      {
-
-        onSuccess: () => {
-          notification.open({
-            message: 'Success',
-            description: 'Login Success',
-            type: 'success',
-          });
-          console.log('successs')
-        
-        },
-        onError: (errorCode) => {
-          const res = JSON.parse(errorCode.responseText);
-
-
-          notification.open({
-            message: 'Error',
-            description: `${'Fail to signin'} - ${errorCode}`,
-            type: 'error',
-          });
-          console.log('erorr')
-        },
+    this.insertUser(value, {
+      onSuccess: () => {
+        notification.open({
+          message: 'Success',
+          description: 'Login Success',
+          type: 'success',
+        });
+        // console.log('successs');
       },
-    );
-   
-  }
+      onError: (errorCode) => {
+        // const res = JSON.parse(errorCode.responseText);
+
+        notification.open({
+          message: 'Error',
+          description: `${'Fail to signin'} - ${errorCode}`,
+          type: 'error',
+        });
+        // console.log('erorr');
+      },
+    });
+  };
 
   render() {
     return (
@@ -89,15 +80,19 @@ class Login extends Component {
 
               <a className="login-form-forgot" href="" style={{ color: 'blue', marginLeft: '1%' }}>
                 Forgot password
-            </a>
+              </a>
             </Form.Item>
 
             <Form.Item>
               <Row>
                 <Col span={8}>
-                  <Button type="primary" htmlType="submit" className="login-form-button" style={{ alignItems: 'center' }}>
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    className="login-form-button"
+                    style={{ alignItems: 'center' }}>
                     Log in
-                </Button>
+                  </Button>
                 </Col>
 
                 <Col span={16}>

@@ -1,11 +1,12 @@
-import { Form, Input, Tooltip, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete, notification } from 'antd';
-import React, { useState } from 'react';
+import { Form, Input, Select, Button, notification } from 'antd';
+import React from 'react';
+
 import { API_URLS } from '../../configs/api';
 import { apiCall } from '../../utilities/api';
 const { Option } = Select;
 class Register extends React.Component {
   insertUser = async (payload, meta) => {
-    console.log('dao vao')
+    // console.log('dao vao');
     const api = API_URLS.USER.signup(payload);
     const { response, error } = await apiCall({ ...api, payload });
     if (!error && (response.status === 200 || response.status === 201)) {
@@ -20,47 +21,37 @@ class Register extends React.Component {
 
   OnClickUpdateSubmit = (value) => {
     delete value.RePassWord;
-    console.log("form value: ", value)
-    this.insertUser(
-      value,
-      {
-
-        onSuccess: () => {
-          notification.open({
-            message: 'Success',
-            description: 'Signin success',
-            type: 'success',
-          });
-          console.log('successs')
-
-        },
-        onError: (errorCode) => {
-          const res = JSON.parse(errorCode.responseText);
-
-
-          notification.open({
-            message: 'Error',
-            description: `${'Fail to signin'} - ${errorCode}`,
-            type: 'error',
-          });
-          console.log('erorr')
-        },
+    // console.log('form value: ', value);
+    this.insertUser(value, {
+      onSuccess: () => {
+        notification.open({
+          message: 'Success',
+          description: 'Signin success',
+          type: 'success',
+        });
+        // console.log('successs');
       },
-    );
-  }
+      onError: (errorCode) => {
+        // const res = JSON.parse(errorCode.responseText);
 
-
+        notification.open({
+          message: 'Error',
+          description: `${'Fail to signin'} - ${errorCode}`,
+          type: 'error',
+        });
+        // console.log('erorr');
+      },
+    });
+  };
 
   render() {
     return (
       <div className="Login">
         <Form
           style={{ marginTop: '5%', width: '30%' }}
-
           name="register"
           onFinish={this.OnClickUpdateSubmit}
           initialValues={{
-           
             prefix: '86',
           }}
           scrollToFirstError>
@@ -68,7 +59,6 @@ class Register extends React.Component {
             name="FullName"
             label="Fullname"
             rules={[
-
               {
                 required: true,
                 message: 'Please input your Fullname!',
@@ -80,7 +70,6 @@ class Register extends React.Component {
             name="UserName"
             label="UserName"
             rules={[
-
               {
                 required: true,
                 message: 'Please input your Username!',
@@ -114,7 +103,7 @@ class Register extends React.Component {
               },
               ({ getFieldValue }) => ({
                 validator(rule, value) {
-                  console.log("value:", value)
+                  // console.log('value:', value);
                   if (!value || getFieldValue('PassWord') === value) {
                     return Promise.resolve();
                   }
@@ -127,43 +116,33 @@ class Register extends React.Component {
             <Input.Password />
           </Form.Item>
 
-
           <Form.Item
             name="RoleCode"
             label="RoleCode"
             rules={[
               {
-
                 required: true,
                 message: 'Please select your habitual residence!',
               },
             ]}>
-            <Select style={{ minWidth: '200px' }} onChange={this.handleChangeRole} filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
-            }>
-
-              <Option value="ADMIN"  >ADMIN
-
-              </Option>
-              <Option value="OWNER" >OWNER
-
-              </Option>
-              <Option value="CUSTOMER">CUSTOMER
-
-              </Option>
-
+            <Select
+              style={{ minWidth: '200px' }}
+              onChange={this.handleChangeRole}
+              filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}>
+              <Option value="ADMIN">ADMIN</Option>
+              <Option value="OWNER">OWNER</Option>
+              <Option value="CUSTOMER">CUSTOMER</Option>
             </Select>
           </Form.Item>
 
-          <Form.Item >
-            <Button type="primary" htmlType="submit" style={{ marginLeft:'45%' }}>
+          <Form.Item>
+            <Button type="primary" htmlType="submit" style={{ marginLeft: '45%' }}>
               Register
-        </Button>
+            </Button>
           </Form.Item>
         </Form>
       </div>
     );
-
-
   }
 }
 export default Register;
