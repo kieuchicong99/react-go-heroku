@@ -1,4 +1,4 @@
-import { Form, Input, Select, Button, notification } from 'antd';
+import { Form, Input, Select, Button, notification, PageHeader } from 'antd';
 import React from 'react';
 
 import { API_URLS } from '../../configs/api';
@@ -47,100 +47,120 @@ class Register extends React.Component {
   render() {
     return (
       <div className="Login">
-        <Form
-          style={{ marginTop: '5%', width: '30%' }}
-          name="register"
-          onFinish={this.OnClickUpdateSubmit}
-          initialValues={{
-            prefix: '86',
-          }}
-          scrollToFirstError>
-          <Form.Item
-            name="FullName"
-            label="Fullname"
-            rules={[
-              {
-                required: true,
-                message: 'Please input your Fullname!',
-              },
-            ]}>
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="UserName"
-            label="UserName"
-            rules={[
-              {
-                required: true,
-                message: 'Please input your Username!',
-              },
-            ]}>
-            <Input />
-          </Form.Item>
+        <div className="Grid">
+          <div
+            className="Col"
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: '100%',
+            }}>
+            <div>
+              <PageHeader style={{ textAlign: 'center' }} title="ĐĂNG KÝ TÀI KHOẢN" />
+              <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+                <img height="200px" width="200px" src="/logo.webp" />
+              </div>
+            </div>
+          </div>
+          <div className="Col" span={12} style={{ width: '100%' }}>
+            <Form
+              name="register"
+              onFinish={this.OnClickUpdateSubmit}
+              initialValues={{
+                prefix: '86',
+              }}
+              scrollToFirstError>
+              <Form.Item
+                name="FullName"
+                label="Fullname"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input your Fullname!',
+                  },
+                ]}>
+                <Input />
+              </Form.Item>
+              <Form.Item
+                name="UserName"
+                label="UserName"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input your Username!',
+                  },
+                ]}>
+                <Input />
+              </Form.Item>
 
-          <Form.Item
-            name="PassWord"
-            label="PassWord"
-            rules={[
-              {
-                required: true,
-                message: 'Please input your password!',
-              },
-            ]}
-            hasFeedback>
-            <Input.Password />
-          </Form.Item>
+              <Form.Item
+                name="PassWord"
+                label="PassWord"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please input your password!',
+                  },
+                ]}
+                hasFeedback>
+                <Input.Password />
+              </Form.Item>
 
-          <Form.Item
-            name="RePassWord"
-            label="Confirm Password"
-            dependencies={['PassWord']}
-            hasFeedback
-            rules={[
-              {
-                required: true,
-                message: 'Please confirm your password!',
-              },
-              ({ getFieldValue }) => ({
-                validator(rule, value) {
-                  // console.log('value:', value);
-                  if (!value || getFieldValue('PassWord') === value) {
-                    return Promise.resolve();
-                  }
+              <Form.Item
+                name="RePassWord"
+                label="Confirm Password"
+                dependencies={['PassWord']}
+                hasFeedback
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please confirm your password!',
+                  },
+                  ({ getFieldValue }) => ({
+                    validator(rule, value) {
+                      // console.log('value:', value);
+                      if (!value || getFieldValue('PassWord') === value) {
+                        return Promise.resolve();
+                      }
 
-                  // eslint-disable-next-line prefer-promise-reject-errors
-                  return Promise.reject('The two passwords that you entered do not match!');
-                },
-              }),
-            ]}>
-            <Input.Password />
-          </Form.Item>
+                      // eslint-disable-next-line prefer-promise-reject-errors
+                      return Promise.reject('The two passwords that you entered do not match!');
+                    },
+                  }),
+                ]}>
+                <Input.Password />
+              </Form.Item>
 
-          <Form.Item
-            name="RoleCode"
-            label="RoleCode"
-            rules={[
-              {
-                required: true,
-                message: 'Please select your habitual residence!',
-              },
-            ]}>
-            <Select
-              style={{ minWidth: '200px' }}
-              onChange={this.handleChangeRole}
-              filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}>
-              <Option value="ADMIN">ADMIN</Option>
-              <Option value="OWNER">OWNER</Option>
-              <Option value="CUSTOMER">CUSTOMER</Option>
-            </Select>
-          </Form.Item>
+              <Form.Item
+                name="RoleCode"
+                label="RoleCode"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please select your habitual residence!',
+                  },
+                ]}>
+                <Select
+                  style={{ minWidth: '200px' }}
+                  onChange={this.handleChangeRole}
+                  filterOption={(input, option) =>
+                    option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                  }>
+                  <Option value="ADMIN">ADMIN</Option>
+                  <Option value="OWNER">OWNER</Option>
+                  <Option value="CUSTOMER">CUSTOMER</Option>
+                </Select>
+              </Form.Item>
 
-          <Form.Item>
-            <Button type="primary" htmlType="submit" style={{ marginLeft: '45%' }}>
-              Register
-            </Button>
-          </Form.Item>
-        </Form>
+              <Form.Item>
+                <Button type="primary" htmlType="submit" style={{ marginLeft: '45%' }}>
+                  Register
+                </Button>
+              </Form.Item>
+            </Form>
+          </div>
+        </div>
       </div>
     );
   }
