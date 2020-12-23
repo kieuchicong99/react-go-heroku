@@ -26,17 +26,17 @@ class Register extends React.Component {
       onSuccess: () => {
         notification.open({
           message: 'Success',
-          description: 'Signin success',
+          description: 'Đăng ký thành công \n Bạn phải chờ Admin phê duyệt tài khoản',
           type: 'success',
         });
-        // console.log('successs');
+        setTimeout(() => {
+          window.location.href = '/login';
+        }, 2000);
       },
       onError: (errorCode) => {
-        // const res = JSON.parse(errorCode.responseText);
-
         notification.open({
           message: 'Error',
-          description: `${'Fail to signin'} - ${errorCode}`,
+          description: `${'Đăng ký thất bại'} \n ${'Tài khoản đã tồn tại'}`,
           type: 'error',
         });
         // console.log('erorr');
@@ -73,22 +73,22 @@ class Register extends React.Component {
               scrollToFirstError>
               <Form.Item
                 name="FullName"
-                label="Fullname"
+                label="Tên đầy đủ"
                 rules={[
                   {
                     required: true,
-                    message: 'Please input your Fullname!',
+                    message: 'Hãy nhập tên của bạn!',
                   },
                 ]}>
                 <Input />
               </Form.Item>
               <Form.Item
                 name="UserName"
-                label="UserName"
+                label="Tên tài khoản"
                 rules={[
                   {
                     required: true,
-                    message: 'Please input your Username!',
+                    message: 'Hãy nhập tên tài khoản! ',
                   },
                 ]}>
                 <Input />
@@ -96,11 +96,11 @@ class Register extends React.Component {
 
               <Form.Item
                 name="PassWord"
-                label="PassWord"
+                label="Mật khẩu"
                 rules={[
                   {
                     required: true,
-                    message: 'Please input your password!',
+                    message: 'Hãy nhập mật khẩu !',
                   },
                 ]}
                 hasFeedback>
@@ -115,7 +115,7 @@ class Register extends React.Component {
                 rules={[
                   {
                     required: true,
-                    message: 'Please confirm your password!',
+                    message: 'Hãy nhập xác nhận mật khẩu',
                   },
                   ({ getFieldValue }) => ({
                     validator(rule, value) {
@@ -134,7 +134,7 @@ class Register extends React.Component {
 
               <Form.Item
                 name="RoleCode"
-                label="RoleCode"
+                label="Tài khoản muốn đăng ký"
                 rules={[
                   {
                     required: true,

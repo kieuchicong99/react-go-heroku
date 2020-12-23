@@ -12,6 +12,11 @@ class Login extends Component {
     const { response, error } = await apiCall({ ...api, payload });
     if (!error && (response.status === 200 || response.status === 201)) {
       if (meta && meta.onSuccess) {
+        console.log('res:', response.data.Data);
+        if (response.data.Data != null && response.data.Data.length > 20) {
+          localStorage.setItem('motelFinderToken', response.data.Data);
+        }
+
         meta.onSuccess();
       }
     } else if (meta && meta.onError) {
@@ -26,17 +31,17 @@ class Login extends Component {
       onSuccess: () => {
         notification.open({
           message: 'Success',
-          description: 'Login Success',
+          description: 'Đăng nhập thành công',
           type: 'success',
         });
-        // console.log('successs');
+        setTimeout(() => {
+          window.location.href = '/home';
+        }, 2000);
       },
       onError: (errorCode) => {
-        // const res = JSON.parse(errorCode.responseText);
-
         notification.open({
           message: 'Error',
-          description: `${'Fail to signin'} - ${errorCode}`,
+          description: `${'Đăng nhập thất bại'} \n ${errorCode}`,
           type: 'error',
         });
         // console.log('erorr');
@@ -113,7 +118,7 @@ class Login extends Component {
                   </Col>
 
                   <Col span={16}>
-                    Or <a href="">register now!</a>
+                    Or <a href="/register">register now!</a>
                   </Col>
                 </Row>
               </Form.Item>
