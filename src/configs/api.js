@@ -1,7 +1,7 @@
 export const HEADERS = {
-  DEFAULT_HEADER: {
+  DEFAULT_HEADER: () => ({
     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-  },
+  }),
   header: () => ({
     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
     Authorization: localStorage.getItem('jwt'),
@@ -16,15 +16,15 @@ export const HEADERS = {
 };
 
 export const API_URLS = {
-  CUSTOMER: {
-    sendPhone: (payload) => ({
-      endPoint: 'customer/login/otp',
+  USER: {
+    signup: (payload) => ({
+      endPoint: 'api/v1/user',
       method: 'POST',
       headers: HEADERS.DEFAULT_HEADER(),
       payload,
     }),
     login: (payload) => ({
-      endPoint: 'customer/login',
+      endPoint: 'api/v1/user/login',
       method: 'POST',
       headers: HEADERS.DEFAULT_HEADER(),
       payload,

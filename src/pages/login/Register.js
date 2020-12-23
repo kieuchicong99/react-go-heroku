@@ -1,276 +1,169 @@
-import { QuestionCircleOutlined } from '@ant-design/icons';
-import { Form, Input, Tooltip, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
+import { Form, Input, Tooltip, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete, notification } from 'antd';
 import React, { useState } from 'react';
+import { API_URLS } from '../../configs/api';
+import { apiCall } from '../../utilities/api';
 const { Option } = Select;
-const residences = [
-  {
-    value: 'zhejiang',
-    label: 'Zhejiang',
-    children: [
-      {
-        value: 'hangzhou',
-        label: 'Hangzhou',
-        children: [
-          {
-            value: 'xihu',
-            label: 'West Lake',
-          },
-        ],
-      },
-    ],
-  },
-  {
-    value: 'jiangsu',
-    label: 'Jiangsu',
-    children: [
-      {
-        value: 'nanjing',
-        label: 'Nanjing',
-        children: [
-          {
-            value: 'zhonghuamen',
-            label: 'Zhong Hua Men',
-          },
-        ],
-      },
-    ],
-  },
-];
-const formItemLayout = {
-  labelCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 8,
-    },
-  },
-  wrapperCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 16,
-    },
-  },
-};
-const tailFormItemLayout = {
-  wrapperCol: {
-    xs: {
-      span: 24,
-      offset: 0,
-    },
-    sm: {
-      span: 16,
-      offset: 8,
-    },
-  },
-};
-
-const Register = () => {
-  const [form] = Form.useForm();
-
-  const onFinish = (values) => {
-    // eslint-disable-next-line no-console
-    console.log('Received values of form: ', values);
-  };
-
-  const prefixSelector = (
-    <Form.Item name="prefix" noStyle>
-      <Select
-        style={{
-          width: 70,
-        }}>
-        <Option value="84">+84</Option>
-        <Option value="87">+87</Option>
-      </Select>
-    </Form.Item>
-  );
-  const [autoCompleteResult, setAutoCompleteResult] = useState([]);
-
-  const onWebsiteChange = (value) => {
-    if (!value) {
-      setAutoCompleteResult([]);
-    } else {
-      setAutoCompleteResult(['.com', '.org', '.net'].map((domain) => `${value}${domain}`));
+class Register extends React.Component {
+  insertUser = async (payload, meta) => {
+    console.log('dao vao')
+    const api = API_URLS.USER.signup(payload);
+    const { response, error } = await apiCall({ ...api, payload });
+    if (!error && (response.status === 200 || response.status === 201)) {
+      if (meta && meta.onSuccess) {
+        meta.onSuccess();
+      }
+    } else if (meta && meta.onError) {
+      meta.onError(error);
     }
+    return { response, error };
   };
 
-  const websiteOptions = autoCompleteResult.map((website) => ({
-    label: website,
-    value: website,
-  }));
-  return (
-    <Form
-      style={{ marginTop: '5%', width: '60%' }}
-      {...formItemLayout}
-      form={form}
-      name="register"
-      onFinish={onFinish}
-      initialValues={{
-        residence: ['zhejiang', 'hangzhou', 'xihu'],
-        prefix: '86',
-      }}
-      scrollToFirstError>
-      <Form.Item
-        name="email"
-        label="E-mail"
-        rules={[
-          {
-            type: 'email',
-            message: 'The input is not valid E-mail!',
-          },
-          {
-            required: true,
-            message: 'Please input your E-mail!',
-          },
-        ]}>
-        <Input />
-      </Form.Item>
+  OnClickUpdateSubmit = (value) => {
+    delete value.RePassWord;
+    console.log("form value: ", value)
+    this.insertUser(
+      value,
+      {
 
-      <Form.Item
-        name="password"
-        label="Password"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your password!',
-          },
-        ]}
-        hasFeedback>
-        <Input.Password />
-      </Form.Item>
+        onSuccess: () => {
+          notification.open({
+            message: 'Success',
+            description: 'Signin success',
+            type: 'success',
+          });
+          console.log('successs')
 
-      <Form.Item
-        name="confirm"
-        label="Confirm Password"
-        dependencies={['password']}
-        hasFeedback
-        rules={[
-          {
-            required: true,
-            message: 'Please confirm your password!',
-          },
-          ({ getFieldValue }) => ({
-            validator(value) {
-              if (!value || getFieldValue('password') === value) {
-                return Promise.resolve();
-              }
+        },
+        onError: (errorCode) => {
+          const res = JSON.parse(errorCode.responseText);
 
-              // eslint-disable-next-line prefer-promise-reject-errors
-              return Promise.reject('The two passwords that you entered do not match!');
-            },
-          }),
-        ]}>
-        <Input.Password />
-      </Form.Item>
 
-      <Form.Item
-        name="nickname"
-        label={
-          <span>
-            Nickname&nbsp;
-            <Tooltip title="What do you want others to call you?">
-              <QuestionCircleOutlined />
-            </Tooltip>
-          </span>
-        }
-        rules={[
-          {
-            required: true,
-            message: 'Please input your nickname!',
-            whitespace: true,
-          },
-        ]}>
-        <Input />
-      </Form.Item>
+          notification.open({
+            message: 'Error',
+            description: `${'Fail to signin'} - ${errorCode}`,
+            type: 'error',
+          });
+          console.log('erorr')
+        },
+      },
+    );
+  }
 
-      <Form.Item
-        name="residence"
-        label="Habitual Residence"
-        rules={[
-          {
-            type: 'array',
-            required: true,
-            message: 'Please select your habitual residence!',
-          },
-        ]}>
-        <Cascader options={residences} />
-      </Form.Item>
 
-      <Form.Item
-        name="phone"
-        label="Phone Number"
-        rules={[
-          {
-            required: true,
-            message: 'Please input your phone number!',
-          },
-        ]}>
-        <Input
-          addonBefore={prefixSelector}
-          style={{
-            width: '100%',
+
+  render() {
+    return (
+      <div className="Login">
+        <Form
+          style={{ marginTop: '5%', width: '30%' }}
+
+          name="register"
+          onFinish={this.OnClickUpdateSubmit}
+          initialValues={{
+           
+            prefix: '86',
           }}
-        />
-      </Form.Item>
+          scrollToFirstError>
+          <Form.Item
+            name="FullName"
+            label="Fullname"
+            rules={[
 
-      <Form.Item
-        name="website"
-        label="Website"
-        rules={[
-          {
-            required: true,
-            message: 'Please input website!',
-          },
-        ]}>
-        <AutoComplete options={websiteOptions} onChange={onWebsiteChange} placeholder="website">
-          <Input />
-        </AutoComplete>
-      </Form.Item>
+              {
+                required: true,
+                message: 'Please input your Fullname!',
+              },
+            ]}>
+            <Input />
+          </Form.Item>
+          <Form.Item
+            name="UserName"
+            label="UserName"
+            rules={[
 
-      <Form.Item label="Captcha" extra="We must make sure that your are a human.">
-        <Row gutter={8}>
-          <Col span={12}>
-            <Form.Item
-              name="captcha"
-              noStyle
-              rules={[
-                {
-                  required: true,
-                  message: 'Please input the captcha you got!',
+              {
+                required: true,
+                message: 'Please input your Username!',
+              },
+            ]}>
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            name="PassWord"
+            label="PassWord"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your password!',
+              },
+            ]}
+            hasFeedback>
+            <Input.Password />
+          </Form.Item>
+
+          <Form.Item
+            name="RePassWord"
+            label="Confirm Password"
+            dependencies={['PassWord']}
+            hasFeedback
+            rules={[
+              {
+                required: true,
+                message: 'Please confirm your password!',
+              },
+              ({ getFieldValue }) => ({
+                validator(rule, value) {
+                  console.log("value:", value)
+                  if (!value || getFieldValue('PassWord') === value) {
+                    return Promise.resolve();
+                  }
+
+                  // eslint-disable-next-line prefer-promise-reject-errors
+                  return Promise.reject('The two passwords that you entered do not match!');
                 },
-              ]}>
-              <Input />
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Button>Get captcha</Button>
-          </Col>
-        </Row>
-      </Form.Item>
+              }),
+            ]}>
+            <Input.Password />
+          </Form.Item>
 
-      <Form.Item
-        name="agreement"
-        valuePropName="checked"
-        rules={[
-          {
-            // eslint-disable-next-line prefer-promise-reject-errors
-            validator: (_, value) => (value ? Promise.resolve() : Promise.reject('Should accept agreement')),
-          },
-        ]}
-        {...tailFormItemLayout}>
-        <Checkbox>
-          I have read the <a href="">agreement</a>
-        </Checkbox>
-      </Form.Item>
-      <Form.Item {...tailFormItemLayout}>
-        <Button type="primary" htmlType="submit">
-          Register
+
+          <Form.Item
+            name="RoleCode"
+            label="RoleCode"
+            rules={[
+              {
+
+                required: true,
+                message: 'Please select your habitual residence!',
+              },
+            ]}>
+            <Select style={{ minWidth: '200px' }} onChange={this.handleChangeRole} filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            }>
+
+              <Option value="ADMIN"  >ADMIN
+
+              </Option>
+              <Option value="OWNER" >OWNER
+
+              </Option>
+              <Option value="CUSTOMER">CUSTOMER
+
+              </Option>
+
+            </Select>
+          </Form.Item>
+
+          <Form.Item >
+            <Button type="primary" htmlType="submit" style={{ marginLeft:'45%' }}>
+              Register
         </Button>
-      </Form.Item>
-    </Form>
-  );
-};
+          </Form.Item>
+        </Form>
+      </div>
+    );
 
+
+  }
+}
 export default Register;
