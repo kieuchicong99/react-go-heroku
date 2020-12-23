@@ -17,6 +17,7 @@ module.exports = {
           changeOrigin: true,
           pathRewrite: { '^/home': '' },
         },
+
       },
       compress: false,
     }),

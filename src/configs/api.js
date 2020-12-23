@@ -4,11 +4,11 @@ export const HEADERS = {
   }),
   header: () => ({
     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-    Authorization: localStorage.getItem('jwt'),
+    Authorization: localStorage.getItem('motelFinderToken'),
   }),
   jsonHeader: () => ({
     'Content-Type': 'application/json; charset=UTF-8',
-    Authorization: localStorage.getItem('jwt'),
+    Authorization: localStorage.getItem('motelFinderToken'),
   }),
   file_header: () => ({
     'Content-Type': 'multipart/form-data',
@@ -27,6 +27,18 @@ export const API_URLS = {
       endPoint: 'api/v1/user/login',
       method: 'POST',
       headers: HEADERS.DEFAULT_HEADER(),
+      payload,
+    }),
+    changepassword: (payload) => ({
+      endPoint: '/api/v1/user/change-pass',
+      method: 'PATCH',
+      headers: HEADERS.header(),
+      payload,
+    }),
+    changeinfo: (payload) => ({
+      endPoint: '/api/v1/user/info',
+      method: 'PATCH',
+      headers: HEADERS.header(),
       payload,
     }),
   },
