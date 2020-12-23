@@ -1,90 +1,60 @@
 import { DesktopOutlined, ContainerOutlined, UserOutlined, NotificationOutlined, EyeOutlined } from '@ant-design/icons';
-import { Menu } from 'antd';
+import { Menu, Layout } from 'antd';
 import React from 'react';
+import { Link } from 'react-router-dom';
 
+import './Menu.scss';
+import MENU_CONFIG from './config-menu/config-menu';
+const { Sider } = Layout;
 export default class MenuSelect extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       collapsed: false,
-      index: 0,
     };
   }
-  toggleCollapsed = () => {
-    const { collapsed } = this.state;
-    this.setState({
-      collapsed: !collapsed,
-    });
+  onCollapse = () => {
+    this.setState((prevState) => ({
+      collapsed: !prevState.collapsed,
+    }));
   };
-  senData = () => {
-    this.props.index(this.state.index);
-  };
+
+  IconName(name) {
+    const TagName = name;
+    return name ? <TagName /> : null;
+  }
+
+  renderMenuItem = ({ key, to, icon, content }) => (
+    <Menu.Item key={key} onClick={this.menuItemSelected}>
+      <Link to={to}>
+        {this.IconName(icon)}
+        <span style={{ marginRight: '10px' }}>{content}</span>
+      </Link>
+    </Menu.Item>
+  );
   render() {
+    const { collapsed } = this.state;
     return (
-      <div style={{ width: '100%' }}>
-        <Menu
-          defaultSelectedKeys={['1']}
-          defaultOpenKeys={['sub1']}
-          mode="inline"
-          theme="white"
-          inlineCollapsed={this.state.collapsed}>
-          <Menu.Item
-            key="1"
-            icon={<UserOutlined />}
-            onClick={() => {
-              this.setState({
-                index: 1,
-              });
-              setTimeout(() => this.senData(), 100);
-            }}>
-            Thông tin cá nhân
-          </Menu.Item>
-          <Menu.Item
-            key="2"
-            icon={<DesktopOutlined />}
-            onClick={() => {
-              this.setState({
-                index: 2,
-              });
-              setTimeout(() => this.senData(), 100);
-            }}>
-            Quản lí bài đăng
-          </Menu.Item>
-          <Menu.Item
-            key="3"
-            icon={<NotificationOutlined />}
-            onClick={() => {
-              this.setState({
-                index: 3,
-              });
-              setTimeout(() => this.senData(), 100);
-            }}>
-            Thông báo
-          </Menu.Item>
-          <Menu.Item
-            key="4"
-            icon={<ContainerOutlined />}
-            onClick={() => {
-              this.setState({
-                index: 4,
-              });
-              setTimeout(() => this.senData(), 100);
-            }}>
-            Xem thống kê
-          </Menu.Item>
-          <Menu.Item
-            key="5"
-            icon={<EyeOutlined />}
-            onClick={() => {
-              this.setState({
-                index: 5,
-              });
-              setTimeout(() => this.senData(), 100);
-            }}>
-            Đổi mật khẩu
-          </Menu.Item>
+      <Sider
+        style={{ background: '#001529', minHeight: '200vh' }}
+        collapsible
+        onCollapse={this.onCollapse}
+        collapsed={collapsed}
+        theme="dark">
+        <div
+          id="Menu"
+          style={{
+            margin: 24,
+            textAlign: 'center',
+          }}>
+          <Link to="/">
+            <img src={collapsed ? '/logo.webp' : '/logo.webp'} style={{ width: '100%' }} alt="" />
+          </Link>
+        </div>
+        <Menu style={{ background: '#001529', border: 'none' }} theme="dark" mode="inline">
+          {MENU_CONFIG['ADMIN'].map((item) => (item.children ? this.renderSubMenu(item) : this.renderMenuItem(item)))}
         </Menu>
-      </div>
+      </Sider>
     );
   }
 }

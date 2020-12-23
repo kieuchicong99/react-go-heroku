@@ -27,7 +27,7 @@ const AppHeader = () => {
             color: '#999999',
             fontSize: '14px',
           }}>
-          <div style={{ paddingRight: '20px' }}>Chào mừng bạn đến với Tìm phòng trọ</div>
+          <div style={{ paddingRight: '20px' }}>Chào mừng bạn đến với Motel Finder</div>
           <div>Liên hệ với chúng tôi: 123-456-789</div>
         </Col>
         <Col span={8}>
@@ -40,7 +40,6 @@ const AppHeader = () => {
               onClick={() => {
                 history.push('/register');
               }}>
-              {' '}
               Đăng ký
             </Button>
             <Button

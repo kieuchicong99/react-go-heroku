@@ -65,6 +65,7 @@ function ContentLayout() {
             <UserOutlined
               style={{ fontSize: '30px' }}
               onClick={() => {
+                console.log('hello');
                 history.push('/dashboard');
               }}
             />

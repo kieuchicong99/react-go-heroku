@@ -1,0 +1,25 @@
+.profile_image{
+    border:2px solid white;
+    border-radius: 50%;
+    width: 180px;
+    height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:hover{
+        cursor: pointer;
+        &:before{
+            background-color: gray;
+            content: "";
+            display: block;
+            position: absolute;
+            height: 180px;
+            width: 180px;
+            border-radius: 50%;
+            opacity: 0.6;
+        }
+    }
+}
+.upload_box{
+    box-shadow: 2px 2px 15px 2px rgb(148, 148, 148);
+}

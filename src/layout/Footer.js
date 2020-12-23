@@ -63,7 +63,7 @@ const AppFooter = () => (
       </Col>
     </Row>
     <hr />
-    <div style={{ paddingTop: '20px' }}>Tìm phòng trọ | Group10 ©2020</div>
+    <div style={{ paddingTop: '20px' }}>Motel Finder | Group10 ©2020</div>
   </Footer>
 );
 

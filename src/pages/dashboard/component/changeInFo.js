@@ -9,7 +9,7 @@ const layout = {
 const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
-export default class ChangePassword extends Component {
+export default class ChangeInfo extends Component {
   onFinish = (values) => {
     console.log('Success:', values);
   };
@@ -22,19 +22,20 @@ export default class ChangePassword extends Component {
     return (
       <div style={{ maxWidth: '500px' }}>
         <div style={{ margin: '30px 0 0 10px' }}>
-          <Form name="basic" {...layout} onFinish={this.onFinish} onFinishFailed={this.onFinishFailed}>
+          <Form {...layout} name="basic" onFinish={this.onFinish} onFinishFailed={this.onFinishFailed}>
             <Form.Item
-              label="Old PassWord"
-              name="OldPass"
-              rules={[{ required: true, message: 'Please input your username!' }]}>
+              label="Full Name"
+              name="FullName"
+              rules={[{ required: true, message: 'Please input your full name!' }]}>
               <Input />
             </Form.Item>
 
-            <Form.Item
-              label="New Password"
-              name="NewPass"
-              rules={[{ required: true, message: 'Please input your password!' }]}>
-              <Input.Password />
+            <Form.Item label="Email" name="Email" rules={[{ required: true, message: 'Please input your email!' }]}>
+              <Input />
+            </Form.Item>
+
+            <Form.Item label="Phone" name="Phone" rules={[{ required: true, message: 'Please input your email!' }]}>
+              <Input />
             </Form.Item>
 
             <Form.Item {...tailLayout}>

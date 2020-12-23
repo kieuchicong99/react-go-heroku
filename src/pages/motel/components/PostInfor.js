@@ -234,7 +234,7 @@ class PostInfor extends React.Component {
       };
     });
     return (
-      <div>
+      <div style={{ background: 'white' }}>
         <ModalMenu reGet={() => motel.componentDidMount()} name="Thêm bài đăng" button="Add a motel" event="insert" />
         <Table
           components={components}
