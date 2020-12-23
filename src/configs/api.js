@@ -49,4 +49,7 @@ export const API_URLS = {
       headers: HEADERS.file_header(),
     }),
   },
+  MOTEL: {
+    getAll: () => {},
+  },
 };

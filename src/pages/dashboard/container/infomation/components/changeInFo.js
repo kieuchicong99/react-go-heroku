@@ -63,24 +63,35 @@ export default class ChangeInfo extends Component {
       <div style={{ maxWidth: '500px' }}>
         <div style={{ margin: '30px 0 0 10px' }}>
           <Form {...layout} name="basic" onFinish={this.onFinish} onFinishFailed={this.onFinishFailed}>
-            <Form.Item
-              label="Họ và tên"
-              name="FullName"
-              rules={[{ required: true, message: 'Please input your full name!' }]}>
+            <Form.Item label="Họ và tên" name="FullName" rules={[{ required: true, message: 'Hãy nhập tên của bạn' }]}>
               <Input />
             </Form.Item>
 
             <Form.Item
               label="Email"
               name="Email"
-              rules={[{ required: true, message: 'Please input your email!', type: 'email' }]}>
+              rules={[{ required: true, message: 'Hãy nhập địa chỉ email của bạn', type: 'email' }]}>
               <Input />
             </Form.Item>
 
             <Form.Item
               label="Số điện thoại"
               name="Phone"
-              rules={[{ required: true, message: 'Please input your phone number!' }]}>
+              rules={[{ required: true, message: 'Hãy nhập số điện thoại của bạn!' }]}>
+              <Input />
+            </Form.Item>
+
+            <Form.Item
+              label="Số CCCD/CMND"
+              name="CMND"
+              rules={[{ required: true, message: 'Haỹ nhập số CMND/CCCD của bạn!' }]}>
+              <Input />
+            </Form.Item>
+
+            <Form.Item
+              label="Địa chỉ"
+              name="Address"
+              rules={[{ required: true, message: 'Hãy nhập địa chỉ của bạn!' }]}>
               <Input />
             </Form.Item>
 

@@ -41,6 +41,7 @@ export default class ChangePassword extends Component {
           type: 'success',
         });
         setTimeout(() => {
+          localStorage.removeItem('motelFinderToken');
           window.location.href = '/login';
         }, 2000);
       },
@@ -68,16 +69,16 @@ export default class ChangePassword extends Component {
         <div style={{ margin: '30px 0 0 10px' }}>
           <Form name="basic" {...layout} onFinish={this.onFinish} onFinishFailed={this.onFinishFailed}>
             <Form.Item
-              label="Old PassWord"
+              label="Mật khẩu cũ "
               name="OldPass"
-              rules={[{ required: true, message: 'Please input your username!' }]}>
+              rules={[{ required: true, message: 'Hãy nhập mật khẩu hiện tại của bạn!' }]}>
               <Input />
             </Form.Item>
 
             <Form.Item
-              label="New Password"
+              label="Mật khẩu mới"
               name="NewPass"
-              rules={[{ required: true, message: 'Please input your password!' }]}>
+              rules={[{ required: true, message: 'Hãy nhập mật khẩu mới!' }]}>
               <Input.Password />
             </Form.Item>
 
