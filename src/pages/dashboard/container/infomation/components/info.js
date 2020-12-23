@@ -170,7 +170,7 @@ export default class Info extends Component {
           <div>
             <Tabs defaultActiveKey="1">
               <TabPane tab="Thay đổi thông tin cá nhân" key="1">
-                <ChangeInfo Avatar={this.state.infor.Avatar} />
+                <ChangeInfo Avatar={this.state.infor.Avatar}></ChangeInfo>
               </TabPane>
               <TabPane tab="Đổi mật khẩu" key="2">
                 <ChangePassword />
