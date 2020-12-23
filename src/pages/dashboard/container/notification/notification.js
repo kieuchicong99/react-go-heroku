@@ -1,7 +1,69 @@
-import { PageHeader } from 'antd';
 import React, { Component } from 'react';
+import { Button, PageHeader, Table } from 'antd';
+import { CheckCircleOutlined } from '@ant-design/icons';
 
 export default class Notifycation extends Component {
+  dataSource = [
+    {
+      key: '1',
+      timestamp: "10 phút trước",
+      status: "Đã phê duyệt",
+      post: 'Căn hộ Hoàng Quốc Việt',
+    },
+    {
+      key: '2',
+      timestamp: '20 phút trước',
+      status: "Bị từ chối",
+      post: 'Nhà trọ đẹp giá rẻ',
+    },
+    {
+      key: '3',
+      timestamp: '3 ngày trước',
+      status: "Đã phê duyệt",
+      post: 'Căn hộ Hoàng Quốc Việt',
+    },
+    {
+      key: '4',
+      timestamp: '15 ngày trước',
+      status: "Đã phê duyệt",
+      post: 'Căn hộ mini, Xuân Thủy, Cầu Giấy',
+    },
+    {
+      key: '5',
+      timestamp: '15 ngày trước',
+      status: "Đã phê duyệt",
+      post: 'Nhà trọ 35m2, ở Hồ Tùng Mậu',
+    },
+    {
+      key: '6',
+      timestamp: '15 ngày trước',
+      status: "Đã phê duyệt",
+      post: 'Căn hộ Hoàng Quốc Việt',
+    },
+  ];
+  columns = [
+   
+    {
+      title: 'Bài viết',
+      dataIndex: 'post',
+      key: 'post',
+    },
+    {
+      title: 'Trạng thái',
+      dataIndex: 'status',
+      key: 'status',
+    },
+     {
+      title: 'Thời gian',
+      dataIndex: 'timestamp',
+      key: 'timestamp',
+    },
+  ];
+  pagination = {
+    current: 1,
+    pageSize: 10,
+    total: 200,
+  };
   render() {
     return (
       <div>
@@ -14,7 +76,12 @@ export default class Notifycation extends Component {
           }}
         />
         <div style={{ padding: '20px' }}>
-          <div style={{ background: 'white', minHeight: '600px', padding: '10px' }}>Xem thông báo</div>
+          <div style={{ background: 'white', padding: '20px' }}>
+            <Button type="primary" icon={<CheckCircleOutlined />}>
+              Đánh dấu đã đọc
+            </Button>
+            <Table dataSource={this.dataSource} columns={this.columns} pagination={this.pagination} />
+          </div>
         </div>
       </div>
     );

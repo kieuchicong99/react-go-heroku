@@ -77,5 +77,5 @@ export default class UploadImage extends Component {
         </Button>
       </div>
     );
-  }
+  } 
 }

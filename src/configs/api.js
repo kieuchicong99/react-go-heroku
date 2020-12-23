@@ -41,6 +41,11 @@ export const API_URLS = {
       headers: HEADERS.header(),
       payload,
     }),
+    getuserinfo: () => ({
+      endPoint: '/api/v1/user/detail/by-token',
+      method: 'GET',
+      headers: HEADERS.header(),
+    }),
   },
   MEDIA: {
     imageUpload: () => ({
