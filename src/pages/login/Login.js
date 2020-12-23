@@ -12,7 +12,7 @@ class Login extends Component {
     const { response, error } = await apiCall({ ...api, payload });
     if (!error && (response.status === 200 || response.status === 201)) {
       if (meta && meta.onSuccess) {
-        console.log('res:', response.data.Data);
+        // console.log('res:', response.data.Data);
         if (response.data.Data != null && response.data.Data.length > 20) {
           localStorage.setItem('motelFinderToken', response.data.Data);
         }

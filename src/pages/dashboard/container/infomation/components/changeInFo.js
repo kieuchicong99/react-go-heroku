@@ -1,5 +1,6 @@
-import { Form, Input, Button,notification } from 'antd';
+import { Form, Input, Button, notification } from 'antd';
 import React, { Component } from 'react';
+
 import { API_URLS } from './../../../../../configs/api';
 import { apiCall } from './../../../../../utilities/api';
 const layout = {
@@ -16,7 +17,7 @@ export default class ChangeInfo extends Component {
     const { response, error } = await apiCall({ ...api, payload });
     if (!error && (response.status === 200 || response.status === 201)) {
       if (meta && meta.onSuccess) {
-        console.log('res:', response.data.Data);
+        // console.log('res:', response.data.Data);
         if (response.data.Data != null && response.data.Data.length > 20) {
           localStorage.setItem('motelFinderToken', response.data.Data);
         }
@@ -69,11 +70,17 @@ export default class ChangeInfo extends Component {
               <Input />
             </Form.Item>
 
-            <Form.Item label="Email" name="Email" rules={[{ required: true, message: 'Please input your email!',type: 'email' }]}>
+            <Form.Item
+              label="Email"
+              name="Email"
+              rules={[{ required: true, message: 'Please input your email!', type: 'email' }]}>
               <Input />
             </Form.Item>
 
-            <Form.Item label="Số điện thoại" name="Phone" rules={[{ required: true, message: 'Please input your phone number!' }]}>
+            <Form.Item
+              label="Số điện thoại"
+              name="Phone"
+              rules={[{ required: true, message: 'Please input your phone number!' }]}>
               <Input />
             </Form.Item>
 

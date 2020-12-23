@@ -1,4 +1,4 @@
-import { Form, Input, Button,notification } from 'antd';
+import { Form, Input, Button, notification } from 'antd';
 import React, { Component } from 'react';
 
 import { API_URLS } from './../../../../../configs/api';
@@ -13,13 +13,12 @@ const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
 export default class ChangePassword extends Component {
-
   changePassWordUser = async (payload, meta) => {
     const api = API_URLS.USER.changepassword(payload);
     const { response, error } = await apiCall({ ...api, payload });
     if (!error && (response.status === 200 || response.status === 201)) {
       if (meta && meta.onSuccess) {
-        console.log('res:', response.data.Data);
+        // console.log('res:', response.data.Data);
         if (response.data.Data != null && response.data.Data.length > 20) {
           localStorage.setItem('motelFinderToken', response.data.Data);
         }
@@ -31,7 +30,6 @@ export default class ChangePassword extends Component {
     }
     return { response, error };
   };
-
 
   onFinish = (values) => {
     // console.log('Success:', values);
@@ -58,7 +56,7 @@ export default class ChangePassword extends Component {
   };
 
   onFinishFailed = (errorInfo) => {
-     console.log('Failed:', errorInfo);
+    // console.log('Failed:', errorInfo);
     setTimeout(() => {
       window.location.href = '/changePassword';
     }, 1000);

@@ -7,7 +7,7 @@ export default class Information extends Component {
     return (
       <div style={{ height: '100%' }}>
         <PageHeader
-          style={{ border: ' 1px solid #f0f0f0', background: 'white', position: 'sticky', top: '0' }}
+          style={{ border: ' 1px solid #f0f0f0', background: 'white', position: 'sticky', top: '0', zIndex: 10 }}
           title="THÔNG TIN CÁ NHÂN"
           onBack={() => window.history.back()}
           avatar={{
