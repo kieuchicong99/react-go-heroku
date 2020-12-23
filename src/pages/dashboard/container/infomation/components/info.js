@@ -1,47 +1,45 @@
+/* eslint-disable no-console */
 import { InstagramOutlined } from '@ant-design/icons';
 import { Button, Tabs, Spin } from 'antd';
 import React, { Component } from 'react';
 
+import { API_URLS } from '../../../../../configs/api';
+import { apiCall } from '../../../../../utilities/api';
 import ChangeInfo from './changeInFo';
 import ChangePassword from './changePassword';
-import { API_URLS } from "../../../../../configs/api"
-import { apiCall } from "../../../../../utilities/api";
 
 import './info.scss';
 const { TabPane } = Tabs;
 export default class Info extends Component {
   state = {
-    fileUploadState: "",
+    fileUploadState: '',
     show: false,
-    infor : {
+    infor: {
       FullName: <Spin size="small" />,
       Phone: <Spin size="small" />,
       Email: <Spin size="small" />,
       CMND: <Spin size="small" />,
-      Address: <Spin size="small"  />,
-      Avatar: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAA1BMVEX///+nxBvIAAAASElEQVR4nO3BgQAAAADDoPlTX+AIVQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwDcaiAAFXD1ujAAAAAElFTkSuQmCC"
-    }
+      Address: <Spin size="small" />,
+      Avatar:
+        'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAA1BMVEX///+nxBvIAAAASElEQVR4nO3BgQAAAADDoPlTX+AIVQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwDcaiAAFXD1ujAAAAAElFTkSuQmCC',
+    },
   };
 
-  
-
-  updateInfo = () =>{
+  updateInfo = () => {
     const api = API_URLS.USER.changeinfo();
-    const formData = new FormData();
-    // formData.append('fileName', fileUpload);
     apiCall({
       ...api,
       payload: this.state.infor,
     }).then((res) => {
-      console.log("changed")
+      console.log('changed');
     });
-  }
+  };
 
   fileUploadButton = () => {
     document.getElementById('file-avt').click();
     document.getElementById('file-avt').onchange = () => {
       this.setState({
-        fileUploadState: document.getElementById('file-avt').value
+        fileUploadState: document.getElementById('file-avt').value,
       });
       const fileUpload = document.getElementById('file-avt').files[0];
       const api = API_URLS.MEDIA.imageUpload();
@@ -54,30 +52,29 @@ export default class Info extends Component {
         if (res.response.status === 200 && res.response.data.success === true) {
           // console.log('result:', res.response.data.data);
           const uri = `http://149.28.157.34:8081/api/v1/file/static/${res.response.data.data.id}`;
-          let temp = this.state.infor
-          this.setState({ infor:{...temp, Avatar:uri} })
-          console.log(this.state)
-          this.updateInfo()
+          const temp = this.state.infor;
+          this.setState({ infor: { ...temp, Avatar: uri } });
+          console.log(this.state);
+          this.updateInfo();
         }
       });
-
-    }
-  }
+    };
+  };
   getinfo = () => {
     const api = API_URLS.USER.getuserinfo();
     apiCall({
       ...api,
     }).then((res) => {
       if (res.response.status === 200) {
-        console.log(res.response.data.Data)
-        this.setState({infor:res.response.data.Data})
+        console.log(res.response.data.Data);
+        this.setState({ infor: res.response.data.Data });
       }
     });
-  }
+  };
   componentDidMount = () => {
-    this.getinfo()
-    console.log("state", this.state)
-  }
+    this.getinfo();
+    console.log('state', this.state);
+  };
   render() {
     return (
       <div style={{ background: 'white' }}>
@@ -124,12 +121,11 @@ export default class Info extends Component {
                   Update Profile image{' '}
                 </Button>
               </div>
-
             </div>
           </div>
         ) : (
-            <></>
-          )}
+          <></>
+        )}
 
         <p style={{ textAlign: 'center', fontWeight: 'bold', color: '#055699' }}>{this.state.infor.FullName}</p>
         <div style={{ padding: '20px' }}>
@@ -170,7 +166,7 @@ export default class Info extends Component {
           <div>
             <Tabs defaultActiveKey="1">
               <TabPane tab="Thay đổi thông tin cá nhân" key="1">
-                <ChangeInfo Avatar={this.state.infor.Avatar}></ChangeInfo>
+                <ChangeInfo Avatar={this.state.infor.Avatar} />
               </TabPane>
               <TabPane tab="Đổi mật khẩu" key="2">
                 <ChangePassword />

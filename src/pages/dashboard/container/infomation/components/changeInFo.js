@@ -12,17 +12,17 @@ const tailLayout = {
   wrapperCol: { offset: 8, span: 16 },
 };
 export default class ChangeInfo extends Component {
-  state = {Avatar : this.props.Avatar}
-  
+  state = { Avatar: this.props.Avatar };
+
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.Avatar !== prevState.Avatar) {
-        return {
-          Avatar: nextProps.Avatar
-        };
+      return {
+        Avatar: nextProps.Avatar,
+      };
     }
 
     return null;
-}
+  }
   changeinfoUser = async (payload, meta) => {
     const api = API_URLS.USER.changeinfo(payload);
     const { response, error } = await apiCall({ ...api, payload });
@@ -43,27 +43,30 @@ export default class ChangeInfo extends Component {
 
   onFinish = (values) => {
     // console.log('Success:', values);
-    let Avatar = this.state.Avatar
-    this.changeinfoUser({...values, Avatar}, {
-      onSuccess: () => {
-        notification.open({
-          message: 'Success',
-          description: 'Cập nhật thông tin thành công! ',
-          type: 'success',
-        });
-        // setTimeout(() => {
-        //   window.location.href = '/login';
-        // }, 2000);
+    const Avatar = this.state.Avatar;
+    this.changeinfoUser(
+      { ...values, Avatar },
+      {
+        onSuccess: () => {
+          notification.open({
+            message: 'Success',
+            description: 'Cập nhật thông tin thành công! ',
+            type: 'success',
+          });
+          // setTimeout(() => {
+          //   window.location.href = '/login';
+          // }, 2000);
+        },
+        onError: (errorCode) => {
+          notification.open({
+            message: 'Error',
+            description: `${'Cập nhật thông tin thất bại!'}`,
+            type: 'error',
+          });
+          // console.log('erorr');
+        },
       },
-      onError: (errorCode) => {
-        notification.open({
-          message: 'Error',
-          description: `${'Cập nhật thông tin thất bại!'}`,
-          type: 'error',
-        });
-        // console.log('erorr');
-      },
-    });
+    );
   };
 
   onFinishFailed = (errorInfo) => {
