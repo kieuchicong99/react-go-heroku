@@ -66,5 +66,17 @@ export const API_URLS = {
       method: 'GET',
       headers: HEADERS.DEFAULT_HEADER(),
     }),
+    getPostByOwner: (payload) => ({
+      endPoint: '/api/v1/motel/by-owner/list-motel',
+      method: 'GET',
+      headers: HEADERS.header(),
+      payload,
+    }),
+    patchAvailalePost: (code, payload) => ({
+      endPoint: `/api/v1/motel/available/${code}`,
+      method: 'PATCH',
+      headers: HEADERS.header(),
+      payload,
+    }),
   },
 };

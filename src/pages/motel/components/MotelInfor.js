@@ -149,9 +149,8 @@ export default class Motel extends Component {
                     <Checkbox checked={this.state.checked} disabled={this.state.disabled} onChange={this.onChange}>
                       Điều hòa
                     </Checkbox>
-                    <div>Giá Nước</div>
                     <div>Phòng tắm</div>
-                    <div>Ban công</div>
+                    <div>Ban công:</div> <Checkbox checked={motelData.HasAirCondition}>Điều hòa</Checkbox>
                     <div>Giá nước: {motelData.WaterPrice}</div>
                     <div>Phòng ăn: {motelData.kitchen}</div>
                     <div>Phòng ngủ: 3 </div>

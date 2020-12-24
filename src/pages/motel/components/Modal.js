@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
-import { Modal, Button, Form, Input, InputNumber, DatePicker, Space, Col, Row } from 'antd';
+import { Modal, Button, Form, Input, InputNumber, DatePicker, Space, Col, Row, Checkbox, Switch } from 'antd';
 import React, { useState } from 'react';
-
 import UploadImage from '../../../components/Upload';
 import EditorInformation from './Editor';
-
+import { API_URLS } from '../../../configs/api';
+import { apiCall } from '../../../utilities/api';
 import './Modal.scss';
 const axios = require('axios').default;
 const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY'];
@@ -20,7 +20,7 @@ const layout = {
 const ModalMenu = (props) => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isMainImage, setIsMainImage] = useState('');
-
+  
   const callImage = (mainImage) => {
     setIsMainImage(mainImage);
   };
@@ -37,6 +37,14 @@ const ModalMenu = (props) => {
   };
   const onFinish = (values) => {
     console.log(values);
+  };
+  const patchAvailalePost = async () => {
+    const api = API_URLS.MOTEL.patchAvailalePost(props.code, { "Available": false });
+    const { response } = await apiCall({ ...api });
+    if (response.status === 200 || response.status === 201) {
+
+    }
+    return { response };
   };
   const returnJson = () => {
     const dataSource = {
@@ -60,7 +68,6 @@ const ModalMenu = (props) => {
     return dataSource;
   };
   const handleAdd = () => {
-    // api thêm nhà trọ
     axios
       .post('https://go-react-heroku.herokuapp.com/api/v1/motel', returnJson())
       .then(function (response) {
@@ -74,7 +81,6 @@ const ModalMenu = (props) => {
   };
 
   const handleEdit = () => {
-    // api sửa nhà trọ
     axios
       .patch(`/api/v1/motel/${props.code}`, returnJson())
       .then(function (response) {
@@ -87,14 +93,20 @@ const ModalMenu = (props) => {
       });
     setTimeout(handleOk(), 10000);
   };
-
+  const handleCallback=() => {
+    props.modal(patchAvailalePost);
+  }
+ 
   const handleEvent = () => {
     if (props.event === 'edit') handleEdit();
     else handleAdd();
   };
   return (
     <div id="post-modal">
-      <Button type="primary" onClick={showModal}>
+      <Button type="primary" onClick={() =>{
+        showModal();
+        handleCallback();
+      }}>
         {props.button}
       </Button>
       <Modal title={props.name} visible={isModalVisible} onOk={handleEvent} onCancel={handleCancel} width={900}>
@@ -139,10 +151,71 @@ const ModalMenu = (props) => {
               </Row>
               <Row style={{ marginTop: '20px' }}>
                 <Col span={3}>
+                  <span>Phòng tắm:</span>
+                </Col>
+                <Col span={19}>
+                  <Checkbox>Có nóng lạnh</Checkbox>
+                  <Checkbox>KHEP_KIN</Checkbox>
+                  <Checkbox>CHUNG</Checkbox>
+                </Col>
+              </Row>
+              <Row style={{ marginTop: '20px' }}>
+                <Col span={3}>
+                  <span>Nhà bếp:</span>
+                </Col>
+                <Col span={19}>
+                  <Checkbox>Khu bếp chung</Checkbox>
+                  <Checkbox>Khu bếp riêng</Checkbox>
+                  <Checkbox>Không nấu ăn</Checkbox>
+                </Col>
+              </Row>
+              <Row style={{ marginTop: '20px' }}>
+                <Col span={3}>
+                  <span>Có điều hòa:</span>
+                </Col>
+                <Col span={19}>
+                  <Checkbox></Checkbox>
+                </Col>
+              </Row>
+              <Row style={{ marginTop: '20px' }}>
+                <Col span={3}>
+                  <span>Có ban công:</span>
+                </Col>
+                <Col span={19}>
+                  <Checkbox></Checkbox>
+                </Col>
+              </Row>
+              <Row style={{ marginTop: '20px' }}>
+                <Col span={3}>
+                  <span>Giá điện:</span>
+                </Col>
+                <Col span={19}>
+                  <InputNumber min={0} max={1000} id="Motel-area" />
+                </Col>
+              </Row>
+              <Row style={{ marginTop: '20px' }}>
+                <Col span={3}>
+                  <span>Giá nước:</span>
+                </Col>
+                <Col span={19}>
+                  <InputNumber min={0} max={1000} id="Motel-area" />
+                </Col>
+              </Row>
+
+              <Row style={{ marginTop: '20px' }}>
+                <Col span={3}>
                   <span>Giá thuê (USD):</span>
                 </Col>
                 <Col span={3}>
                   <InputNumber min={0} max={1000} id="Motel-cost" />
+                </Col>
+              </Row>
+              <Row style={{ marginTop: '20px' }}>
+                <Col span={3}>
+                  <span>Có người thuê</span>
+                </Col>
+                <Col span={3}>
+                  <Switch defaultChecked onChange={patchAvailalePost} />
                 </Col>
               </Row>
               <Row style={{ marginTop: '20px' }}>
