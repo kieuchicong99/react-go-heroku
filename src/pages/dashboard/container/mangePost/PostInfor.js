@@ -1,11 +1,13 @@
 /* eslint-disable no-console */
 /* eslint-disable max-len */
-import { Table, Button, Popconfirm, Form, Tooltip, notification, Switch, Col, Row, Checkbox,Modal } from 'antd';
+import { Table, Button, Popconfirm, Form, Tooltip, notification, Switch, Col, Row, Checkbox, Modal } from 'antd';
 import React, { useContext, useState, useEffect, useRef } from 'react';
+
 import './PostInfor.css';
-import ModalMenu from '../../../motel/components/Modal';
 import { API_URLS } from '../../../../configs/api';
 import { apiCall } from '../../../../utilities/api';
+import ModalMenu from '../../../motel/components/Modal';
+
 const EditableContext = React.createContext();
 const axios = require('axios').default;
 const meta = {
@@ -19,11 +21,11 @@ const meta = {
   onError: (errorCode) => {
     notification.open({
       message: 'Error',
-      description: "Error",
+      description: 'Error',
       type: 'error',
     });
-  }
-}
+  },
+};
 const EditableRow = ({ index, ...props }) => {
   const [form] = Form.useForm();
   return (
@@ -69,15 +71,15 @@ const EditableCell = ({ title, editable, children, dataIndex, record, handleSave
         ]}
       />
     ) : (
-        <div
-          className="editable-cell-value-wrap"
-          style={{
-            paddingRight: 24,
-          }}
-          onClick={toggleEdit}>
-          {children}
-        </div>
-      );
+      <div
+        className="editable-cell-value-wrap"
+        style={{
+          paddingRight: 24,
+        }}
+        onClick={toggleEdit}>
+        {children}
+      </div>
+    );
   }
 
   return <td {...restProps}>{childNode}</td>;
@@ -89,7 +91,7 @@ class PostInfor extends React.Component {
     this.state = {
       dataSource: [],
       deletedMotel: {},
-      isModalVisible:false,
+      isModalVisible: false,
     };
 
     motel = this;
@@ -142,9 +144,7 @@ class PostInfor extends React.Component {
         width: '5%',
         dataIndex: 'operation',
         render: (text, record) => (
-          <Popconfirm
-            title="Sure to delete?"
-          >
+          <Popconfirm title="Sure to delete?">
             <Button
               style={{
                 background: '#1890ff',
@@ -163,37 +163,36 @@ class PostInfor extends React.Component {
         dataIndex: 'operation',
         render: (text, record) => {
           if (record.Status == true) {
-            global.value = record.MotelCode
+            global.value = record.MotelCode;
             return (
               <ModalMenu
                 name="Sửa bài đăng"
                 button="Sửa"
                 code={record.MotelCode}
                 event="edit"
-                function={(data) =>{
+                function={(data) => {
                   this.setState({
-                    modal:data
-                  })
-                } }
+                    modal: data,
+                  });
+                }}
                 dataSource={this.state.dataSource}
                 reGet={() => motel.componentDidMount()}
               />
-            )
-
+            );
           }
-        }
+        },
       },
     ];
   }
-  
+
   getPost = async (meta) => {
     const api = API_URLS.MOTEL.getPostByOwner();
     const { response, error } = await apiCall({ ...api });
     if (!error && (response.status === 200 || response.status === 201)) {
-      console.log("res:", response.data.Data)
+      console.log('res:', response.data.Data);
       this.setState({
-        dataSource: response.data.Data
-      })
+        dataSource: response.data.Data,
+      });
       if (meta && meta.onSuccess) {
         meta.onSuccess();
       }
@@ -203,10 +202,9 @@ class PostInfor extends React.Component {
     return { response, error };
   };
   componentDidMount() {
-    this.getPost(meta)
+    this.getPost(meta);
   }
   render() {
-
     const { dataSource } = this.state;
     const components = {
       body: {
