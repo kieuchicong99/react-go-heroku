@@ -1,7 +1,25 @@
-import { PageHeader } from 'antd';
+import { PageHeader, notification } from 'antd';
 import React, { Component } from 'react';
 
 import PostInfor from './PostInfor.js';
+
+const meta = {
+  onSuccess: () => {
+    notification.open({
+      message: 'Success',
+      description: 'Success',
+      type: 'success',
+    });
+  },
+  onError: (errorCode) => {
+    notification.open({
+      message: 'Error',
+      description: "Error",
+      type: 'error',
+    });
+  }
+}
+
 export default class ManagePost extends Component {
   render() {
     return (

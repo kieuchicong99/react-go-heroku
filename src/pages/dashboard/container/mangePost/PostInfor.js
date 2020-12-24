@@ -1,15 +1,29 @@
 /* eslint-disable no-console */
 /* eslint-disable max-len */
-import { Table, Button, Popconfirm, Form, Tooltip } from 'antd';
+import { Table, Button, Popconfirm, Form, Tooltip, notification, Switch, Col, Row, Checkbox,Modal } from 'antd';
 import React, { useContext, useState, useEffect, useRef } from 'react';
-
 import './PostInfor.css';
 import ModalMenu from '../../../motel/components/Modal';
-import SwitchExample from '../../../motel/components/Switch';
-
+import { API_URLS } from '../../../../configs/api';
+import { apiCall } from '../../../../utilities/api';
 const EditableContext = React.createContext();
 const axios = require('axios').default;
-
+const meta = {
+  onSuccess: () => {
+    notification.open({
+      message: 'Success',
+      description: 'Success',
+      type: 'success',
+    });
+  },
+  onError: (errorCode) => {
+    notification.open({
+      message: 'Error',
+      description: "Error",
+      type: 'error',
+    });
+  }
+}
 const EditableRow = ({ index, ...props }) => {
   const [form] = Form.useForm();
   return (
@@ -55,15 +69,15 @@ const EditableCell = ({ title, editable, children, dataIndex, record, handleSave
         ]}
       />
     ) : (
-      <div
-        className="editable-cell-value-wrap"
-        style={{
-          paddingRight: 24,
-        }}
-        onClick={toggleEdit}>
-        {children}
-      </div>
-    );
+        <div
+          className="editable-cell-value-wrap"
+          style={{
+            paddingRight: 24,
+          }}
+          onClick={toggleEdit}>
+          {children}
+        </div>
+      );
   }
 
   return <td {...restProps}>{childNode}</td>;
@@ -74,8 +88,8 @@ class PostInfor extends React.Component {
     super(props);
     this.state = {
       dataSource: [],
-      motelCode: '',
       deletedMotel: {},
+      isModalVisible:false,
     };
 
     motel = this;
@@ -121,7 +135,7 @@ class PostInfor extends React.Component {
       {
         width: '5%',
         title: 'Có người thuê',
-        render: () => <SwitchExample />,
+        render: () => <Switch onChange={() => } />,
       },
       {
         title: 'Xóa',
@@ -130,10 +144,7 @@ class PostInfor extends React.Component {
         render: (text, record) => (
           <Popconfirm
             title="Sure to delete?"
-            onConfirm={() => {
-              global.value = record.MotelCode;
-              this.handleEdit();
-            }}>
+          >
             <Button
               style={{
                 background: '#1890ff',
@@ -150,66 +161,52 @@ class PostInfor extends React.Component {
         title: 'Sửa',
         width: '5%',
         dataIndex: 'operation',
-        render: (text, record) => (
-          <ModalMenu
-            name="Sửa bài đăng"
-            button="Sửa"
-            event="edit"
-            code={record.MotelCode}
-            dataSource={this.state.dataSource}
-            reGet={() => motel.componentDidMount()}
-          />
-        ),
+        render: (text, record) => {
+          if (record.Status == true) {
+            global.value = record.MotelCode
+            return (
+              <ModalMenu
+                name="Sửa bài đăng"
+                button="Sửa"
+                code={record.MotelCode}
+                event="edit"
+                function={(data) =>{
+                  this.setState({
+                    modal:data
+                  })
+                } }
+                dataSource={this.state.dataSource}
+                reGet={() => motel.componentDidMount()}
+              />
+            )
+
+          }
+        }
       },
     ];
   }
-  returnJson = () => {
-    const dataSource = {
-      Address: '',
-      Cost: 0,
-      Description: '',
-      Image: '',
-      Images: [''],
-      Latitude: '21.0286755',
-      Longitude: '105.7558943,13z',
-      Status: true,
-      Tags: ['hanoi'],
-      Title: '',
-    };
-    dataSource.Status = false;
-    return dataSource;
-  };
-  componentDidMount = () => {
-    //lấy danh sách nhà trọ
-    axios
-      .get('https://go-react-heroku.herokuapp.com/api/v1/motel', {})
-      .then(function (response) {
-        console.log(response);
-        motel.setState({
-          dataSource: Object.values(response.data.Data),
-        });
-        motel.setState({ dataSource: motel.state.dataSource.filter((item) => item.Status === true) });
+  
+  getPost = async (meta) => {
+    const api = API_URLS.MOTEL.getPostByOwner();
+    const { response, error } = await apiCall({ ...api });
+    if (!error && (response.status === 200 || response.status === 201)) {
+      console.log("res:", response.data.Data)
+      this.setState({
+        dataSource: response.data.Data
       })
-      .catch(function (error) {
-        console.log(error);
-      })
-      .then(function () {});
+      if (meta && meta.onSuccess) {
+        meta.onSuccess();
+      }
+    } else if (meta && meta.onError) {
+      meta.onError(error);
+    }
+    return { response, error };
   };
-  handleEdit = () => {
-    // sửa nhà trọ theo id
-    axios
-      .patch(`/api/v1/motel/${global.value}`, this.returnJson())
-      .then(function (response) {
-        console.log(response);
-        motel.componentDidMount();
-      })
-
-      .catch(function (error) {
-        console.log(error);
-      });
-  };
-
+  componentDidMount() {
+    this.getPost(meta)
+  }
   render() {
+
     const { dataSource } = this.state;
     const components = {
       body: {
