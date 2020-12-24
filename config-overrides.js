@@ -7,6 +7,11 @@ module.exports = {
     (config, env) => ({
       ...config,
       proxy: {
+        '/api/v1/motel/by-code/5fe35486101c936f12834405': {
+          target: process.env.DOMAIN_IMAGE,
+          changeOrigin: true,
+          pathRewrite: { '^/home': '' },
+        },
         '/api/v1/file': {
           target: process.env.DOMAIN_IMAGE,
           changeOrigin: true,
@@ -17,7 +22,6 @@ module.exports = {
           changeOrigin: true,
           pathRewrite: { '^/home': '' },
         },
-
       },
       compress: false,
     }),

@@ -1,21 +1,16 @@
 /* eslint-disable react/no-did-mount-set-state */
 /* eslint-disable no-console */
 import { PhoneOutlined, ArrowLeftOutlined, HeartFilled } from '@ant-design/icons';
-import { Button, Col, Row, Tooltip } from 'antd';
+import { Button, Col, Row, Tooltip, Checkbox } from 'antd';
 import React, { Component } from 'react';
 import Slider from 'react-slick';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './MotelInfor.css';
-const displayImage = [
-  'https://react-slideshow.herokuapp.com/assets/images/slide_2.jpg',
-  'https://react-slideshow.herokuapp.com/assets/images/slide_4.jpg',
-  'https://react-slideshow.herokuapp.com/assets/images/slide_5.jpg',
-  'https://react-slideshow.herokuapp.com/assets/images/slide_7.jpg',
-];
-const axios = require('axios').default;
-let motel;
+import { API_URLS } from '../../../configs/api';
+import { apiCall } from '../../../utilities/api';
+
 export default class Motel extends Component {
   constructor(props) {
     super(props);
@@ -25,28 +20,27 @@ export default class Motel extends Component {
       addFavourite: 0,
       colorIcon: 'blue',
       notify: 'Bấm để bỏ lưu tin',
-      dataSource: {},
+      motelData: {},
     };
-    motel = this;
   }
+  getByCode = async (code) => {
+    const api = API_URLS.MOTEL.getByCode(code);
+    const { response, error } = await apiCall({ ...api });
+    if (!error && (response.status === 200 || response.status === 201)) {
+      console.log('response:', response);
+      this.setState({ motelData: response.data.Data });
+    } else {
+    }
+    return { response, error };
+  };
   componentDidMount() {
+    const motelCode = this.props.history.location.pathname.replace('/home/nha-tro-detail/', '');
+    console.log('motelCode:', motelCode);
+    this.getByCode(motelCode);
     this.setState({
       nav1: this.slider1,
       nav2: this.slider2,
     });
-    axios
-      .get(`/api/v1/motel/${motel.context}`, {})
-      .then(function (response) {
-        console.log(response);
-        motel.setState({
-          dataSource: response.data.Data,
-        });
-        console.log(motel.context.code);
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
-      .then(function () {});
   }
   render() {
     const styles = {
@@ -57,6 +51,7 @@ export default class Motel extends Component {
       },
       notify: this.state.notify,
     };
+    const { motelData } = this.state;
     return (
       <div style={{ width: '100%' }}>
         <Button
@@ -77,9 +72,9 @@ export default class Motel extends Component {
                 backgroundColor: '#A0A0A0',
               }}>
               <Slider asNavFor={this.state.nav2} ref={(slider) => (this.slider1 = slider)}>
-                {displayImage.map((item) => (
+                {motelData.Images?.map((item) => (
                   <div>
-                    <img className="ParentImage" src={item} />
+                    <img style={{ maxHeight: '500px' }} className="ParentImage" src={item} />
                   </div>
                 ))}
               </Slider>
@@ -90,7 +85,7 @@ export default class Motel extends Component {
                 swipeToSlide
                 focusOnSelect
                 style={{ margin: '0px 30px 5px 30px' }}>
-                {displayImage.map((item) => (
+                {motelData.Images?.map((item) => (
                   <div>
                     <img className="ChildImage" src={item} />
                   </div>
@@ -98,28 +93,27 @@ export default class Motel extends Component {
               </Slider>
             </div>
             <div style={{ margin: '30px 0 0 0' }}>
-              <div style={{ textAlign: 'left', fontWeight: 'bold', fontSize: '18px' }}>Cho thuê nhà trọ</div>
-              <div style={{ width: '800px', textAlign: 'left' }}>Hoàng Quốc Việt, Cầu Giấy</div>
+              <div style={{ textAlign: 'left', fontWeight: 'bold', fontSize: '18px' }}>{motelData.Title}</div>
+              <div style={{ width: '800px', textAlign: 'left' }}>{motelData.Address}</div>
 
               <div>
                 <Row
                   style={{
-                    height: '80px',
                     borderBottom: '1px solid #E0E0E0',
                     borderTop: '1px solid #E0E0E0',
-                    marginTop: '5%',
-                    paddingTop: '1%',
+                    marginTop: '20px',
+                    paddingTop: '10px',
                   }}>
                   <Col span={6} style={{ textAlign: 'left' }}>
-                    <p>Mức giá:</p>
-                    <p style={{ fontWeight: 'bold', fontSize: '20px' }}>20 USD</p>
+                    <div className="title">Mức giá:</div>
+                    <div style={{ fontWeight: 'bold', fontSize: '20px' }}>{motelData.Cost}</div>
                   </Col>
                   <Col span={12} style={{ textAlign: 'left' }}>
-                    <p>Diện tích:</p>
-                    <p style={{ fontWeight: 'bold', fontSize: '20px' }}>575 m2</p>
+                    <div className="title">Diện tích:</div>
+                    <div style={{ fontWeight: 'bold', fontSize: '20px' }}>{motelData.Acreage}</div>
                   </Col>
                   <Col span={6} style={{}}>
-                    <div style={{ marginTop: '15%', fontWeight: 'bold', fontSize: '18px', cursor: 'pointer' }}>
+                    <div className="title" style={{ cursor: 'pointer' }}>
                       Lưu tin
                       <Tooltip title={styles.notify} placement="bottom">
                         <HeartFilled
@@ -146,6 +140,24 @@ export default class Motel extends Component {
                     </div>
                   </Col>
                 </Row>
+                <div>
+                  <div className="title">MÔ TẢ</div>
+                  <div>{motelData.Description}</div>
+                  <div className="title">CÁC THÔNG TIN KHÁC</div>
+                  <div>
+                    <div>Giá điện</div>
+                    <Checkbox checked={this.state.checked} disabled={this.state.disabled} onChange={this.onChange}>
+                      Điều hòa
+                    </Checkbox>
+                    <div>Giá Nước</div>
+                    <div>Phòng tắm</div>
+                    <div>Ban công</div>
+                    <div>Giá nước: {motelData.WaterPrice}</div>
+                    <div>Phòng ăn: {motelData.kitchen}</div>
+                    <div>Phòng ngủ: 3 </div>
+                    <div />
+                  </div>
+                </div>
               </div>
             </div>
           </Col>

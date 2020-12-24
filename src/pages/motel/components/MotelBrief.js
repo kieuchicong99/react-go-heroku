@@ -33,7 +33,7 @@ export default class MotelBrief extends Component {
           }}>
           <Col span={5} style={{}}>
             <img
-              src="https://file4.batdongsan.com.vn/crop/350x232/2020/11/29/20201129161227-1580_wm.jpg"
+              src={data.Image}
               style={{ width: '100%', height: '100%', backgroundColor: 'red', maxHeight: '200px' }}
             />
           </Col>
@@ -42,21 +42,21 @@ export default class MotelBrief extends Component {
               className="MotalInfor"
               title="Xem Chi tiết"
               onClick={() => {
-                this.props.log('nha-tro-detail');
+                this.props.log(`nha-tro-detail/${data.MotelCode}`);
               }}>
-              <div style={{ fontWeight: 'bold', paddingLeft: '10px' }}>{data.title}</div>
+              <div style={{ fontWeight: 'bold', paddingLeft: '10px' }}>{data.Title}</div>
               <div style={{ display: 'flex', marginTop: '1%' }}>
                 <div style={{ color: 'red', marginLeft: '1%' }}>
                   <DollarCircleOutlined style={{ marginRight: '5px' }} />
-                  {data.cost} triệu/tháng
+                  {data.Cost} triệu/tháng
                 </div>
                 <div style={{ marginLeft: '1%' }}>
                   <AreaChartOutlined style={{ margin: '0 5px 0 40px' }} />
-                  {data.area}
+                  {data.Acreage}
                 </div>
                 <div style={{ marginLeft: '5%' }}>
                   <HomeOutlined style={{ marginRight: '5px' }} />
-                  {data.address}
+                  {data.Address}
                 </div>
 
                 <div className="icon-favourite" style={{ marginLeft: '20px' }}>

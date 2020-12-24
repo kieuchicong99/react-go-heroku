@@ -20,6 +20,8 @@ export const PREFIX = {
   API_CALLED_FAILURE: 'API_CALLED_FAILURE',
   ROLE: 'ROLE',
   CUSTOMER: 'CUSTOMER',
+
+  MOTEL: 'MOTEL',
 };
 
 export const typesWithPrefix = (prefix) => (key) => `${prefix}_${key}`;

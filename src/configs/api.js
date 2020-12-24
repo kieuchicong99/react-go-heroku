@@ -55,6 +55,16 @@ export const API_URLS = {
     }),
   },
   MOTEL: {
-    getAll: () => {},
+    getAll: (params) => ({
+      endPoint: '/api/v1/motel',
+      method: 'GET',
+      headers: HEADERS.DEFAULT_HEADER(),
+      params,
+    }),
+    getByCode: (code) => ({
+      endPoint: `/api/v1/motel/by-code/${code}`,
+      method: 'GET',
+      headers: HEADERS.DEFAULT_HEADER(),
+    }),
   },
 };

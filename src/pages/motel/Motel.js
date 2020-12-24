@@ -1,77 +1,58 @@
 /* eslint-disable max-len */
-import { Col, Row } from 'antd';
+import { Col, Row, Table } from 'antd';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
+import { actions as motelActions } from '../../redux/motelRedux';
 import Filter from './components/Filter';
 import MotelBrief from './components/MotelBrief';
 
 import './motel.css';
 
-const data = [
-  {
-    title: 'CHO THUÊ PHÒNG ĐẸP VÀ RẺ NHẤT LOTTE Q7, ĐÃ NGHIỆM THU PCCC, GIÁ TỪ 3 TR, TÒA NHÀ 8 TẦNG MỚI XÂY',
-    cost: '3',
-    area: '25 m²',
-    address: 'Cầu Giấy,Hà Nội',
-    description:
-      'Tòa nhà 8 tầng mới xây sạch,đẹp,văn minh thoáng mát, an ninh. Liền kề 5 phút đến Q1, Q4, Q5, Q8, Crescent Mall, SC Vivo, vị trí vàng đẹp Q. 7...Thuê chỗ ở bây giờ cần phải đảm bảo an toàn PCCC tuyệt đối. Tòa nhà căn hộ cho thuê cao cấp của chúng tôi có thẩm duyệt PCCC và đã nghiệm thu PCCC kèm theo bảo hiểm đảm bảo an toàn cho toàn bộ cư dân sống và làm việc tại đây, có an cư, an toàn mới lạc nghiệp.',
-    phone: '01234567',
-  },
-  {
-    title: 'CHO THUÊ PHÒNG ĐẸP VÀ RẺ NHẤT LOTTE Q7, ĐÃ NGHIỆM THU PCCC, GIÁ TỪ 3 TR, TÒA NHÀ 8 TẦNG MỚI XÂY',
-    cost: '3',
-    area: '25 m²',
-    address: 'Cầu Giấy,Hà Nội',
+class Motel extends Component {
+  state = {
+    total: 0,
+    current: 1,
+    pageSize: 10,
+  };
+  getMotel = (params) => {
+    this.props.getListMotel(params);
+  };
 
-    description:
-      'Tòa nhà 8 tầng mới xây sạch,đẹp,văn minh thoáng mát, an ninh. Liền kề 5 phút đến Q1, Q4, Q5, Q8, Crescent Mall, SC Vivo, vị trí vàng đẹp Q. 7...Thuê chỗ ở bây giờ cần phải đảm bảo an toàn PCCC tuyệt đối. Tòa nhà căn hộ cho thuê cao cấp của chúng tôi có thẩm duyệt PCCC và đã nghiệm thu PCCC kèm theo bảo hiểm đảm bảo an toàn cho toàn bộ cư dân sống và làm việc tại đây, có an cư, an toàn mới lạc nghiệp.',
-    phone: '01234567',
-  },
-  {
-    title: 'CHO THUÊ PHÒNG ĐẸP VÀ RẺ NHẤT LOTTE Q7, ĐÃ NGHIỆM THU PCCC, GIÁ TỪ 3 TR, TÒA NHÀ 8 TẦNG MỚI XÂY',
-    cost: '3',
-    area: '25 m²',
-    address: 'Cầu Giấy,Hà Nội',
+  columns = [
+    {
+      title: <div style={{ textTransform: 'uppercase', fontWeight: '900' }}>Danh sách các phòng trọ</div>,
+      dataIndex: 'post',
+      key: 'post',
+      render: (value, record) => (
+        <>
+          <MotelBrief itemdata={record} log={this.log} />
+        </>
+      ),
+    },
+  ];
 
-    description:
-      'Tòa nhà 8 tầng mới xây sạch,đẹp,văn minh thoáng mát, an ninh. Liền kề 5 phút đến Q1, Q4, Q5, Q8, Crescent Mall, SC Vivo, vị trí vàng đẹp Q. 7...Thuê chỗ ở bây giờ cần phải đảm bảo an toàn PCCC tuyệt đối. Tòa nhà căn hộ cho thuê cao cấp của chúng tôi có thẩm duyệt PCCC và đã nghiệm thu PCCC kèm theo bảo hiểm đảm bảo an toàn cho toàn bộ cư dân sống và làm việc tại đây, có an cư, an toàn mới lạc nghiệp.',
-    phone: '01234567',
-  },
-  {
-    title: 'CHO THUÊ PHÒNG ĐẸP VÀ RẺ NHẤT LOTTE Q7, ĐÃ NGHIỆM THU PCCC, GIÁ TỪ 3 TR, TÒA NHÀ 8 TẦNG MỚI XÂY',
-    cost: '3',
-    area: '25 m²',
-    address: 'Cầu Giấy,Hà Nội',
-
-    description:
-      'Tòa nhà 8 tầng mới xây sạch,đẹp,văn minh thoáng mát, an ninh. Liền kề 5 phút đến Q1, Q4, Q5, Q8, Crescent Mall, SC Vivo, vị trí vàng đẹp Q. 7...Thuê chỗ ở bây giờ cần phải đảm bảo an toàn PCCC tuyệt đối. Tòa nhà căn hộ cho thuê cao cấp của chúng tôi có thẩm duyệt PCCC và đã nghiệm thu PCCC kèm theo bảo hiểm đảm bảo an toàn cho toàn bộ cư dân sống và làm việc tại đây, có an cư, an toàn mới lạc nghiệp.',
-    phone: '01234567',
-  },
-  {
-    title: 'CHO THUÊ PHÒNG ĐẸP VÀ RẺ NHẤT LOTTE Q7, ĐÃ NGHIỆM THU PCCC, GIÁ TỪ 3 TR, TÒA NHÀ 8 TẦNG MỚI XÂY',
-    cost: '3',
-    area: '25 m²',
-    address: 'Cầu Giấy,Hà Nội',
-    description:
-      'Tòa nhà 8 tầng mới xây sạch,đẹp,văn minh thoáng mát, an ninh. Liền kề 5 phút đến Q1, Q4, Q5, Q8, Crescent Mall, SC Vivo, vị trí vàng đẹp Q. 7...Thuê chỗ ở bây giờ cần phải đảm bảo an toàn PCCC tuyệt đối. Tòa nhà căn hộ cho thuê cao cấp của chúng tôi có thẩm duyệt PCCC và đã nghiệm thu PCCC kèm theo bảo hiểm đảm bảo an toàn cho toàn bộ cư dân sống và làm việc tại đây, có an cư, an toàn mới lạc nghiệp. Tòa nhà 8 tầng mới xây sạch,đẹp,văn minh thoáng mát, an ninh. Liền kề 5 phút đến Q1, Q4, Q5, Q8, Crescent Mall, SC Vivo, vị trí vàng đẹp Q. 7...Thuê chỗ ở bây giờ cần phải đảm bảo an toàn PCCC tuyệt đối. Tòa nhà căn hộ cho thuê cao cấp của chúng tôi có thẩm duyệt PCCC và đã nghiệm thu PCCC kèm theo bảo hiểm đảm bảo an toàn cho toàn bộ cư dân sống và làm việc tại đây, có an cư, an toàn mới lạc nghiệp.Tòa nhà 8 tầng mới xây sạch,đẹp,văn minh thoáng mát, an ninh. Liền kề 5 phút đến Q1, Q4, Q5, Q8, Crescent Mall, SC Vivo, vị trí vàng đẹp Q. 7...Thuê chỗ ở bây giờ cần phải đảm bảo an toàn PCCC tuyệt đối. Tòa nhà căn hộ cho thuê cao cấp của chúng tôi có thẩm duyệt PCCC và đã nghiệm thu PCCC kèm theo bảo hiểm đảm bảo an toàn cho toàn bộ cư dân sống và làm việc tại đây, có an cư, an toàn mới lạc nghiệp.Tòa nhà 8 tầng mới xây sạch,đẹp,văn minh thoáng mát, an ninh. Liền kề 5 phút đến Q1, Q4, Q5, Q8, Crescent Mall, SC Vivo, vị trí vàng đẹp Q. 7...Thuê chỗ ở bây giờ cần phải đảm bảo an toàn PCCC tuyệt đối. Tòa nhà căn hộ cho thuê cao cấp của chúng tôi có thẩm duyệt PCCC và đã nghiệm thu PCCC kèm theo bảo hiểm đảm bảo an toàn cho toàn bộ cư dân sống và làm việc tại đây, có an cư, an toàn mới lạc nghiệp.',
-    phone: '01234567',
-  },
-];
-export default class Motel extends Component {
   log = (route) => {
-    // eslint-disable-next-line no-console
-    console.log('Motel.props', this.props, route);
     this.props.history.push(route);
   };
+
+  componentDidMount() {
+    this.getMotel();
+  }
   render() {
+    const data = this.props.listMotels;
+    const pagination = {
+      current: 1,
+      pageSize: 5,
+      total: data.length,
+    };
     return (
       <div>
         <Row>
           <Col span={18} style={{}}>
-            {data.map((item) => (
-              <MotelBrief itemdata={item} log={this.log} />
-            ))}
+            <Table dataSource={data} columns={this.columns} pagination={pagination} />
           </Col>
+
           <Col span={6} style={{ marginTop: '20px' }}>
             <Filter />
           </Col>
@@ -80,3 +61,14 @@ export default class Motel extends Component {
     );
   }
 }
+
+const mapStateToProps = ({ motelReducer }) => ({
+  listMotels: motelReducer.data,
+  isFetching: motelReducer.isFetching,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getListMotel: (params) => dispatch(motelActions.getListMotel(params)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Motel);
