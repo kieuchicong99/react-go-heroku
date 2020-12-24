@@ -1,8 +1,16 @@
 .ParentImage {
+  height: 500px;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
   width: 100%;
-  /* height: 100% */
+  &:hover {
+    cursor: pointer;
+  }
 }
-
+.ParentImageFullScreen{
+  height: 700px;
+}
 .ChildImage {
   width: 150px;
   height: 100px;

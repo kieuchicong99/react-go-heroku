@@ -1,8 +1,24 @@
-import { HomeOutlined, DollarCircleOutlined, AreaChartOutlined, PhoneOutlined, HeartFilled } from '@ant-design/icons';
-import { Col, Row, Button, Tooltip } from 'antd';
+import {
+  HomeOutlined,
+  DollarCircleOutlined,
+  AreaChartOutlined,
+  PhoneOutlined,
+  HeartFilled,
+  MessageOutlined,
+  LikeOutlined,
+  StarOutlined,
+} from '@ant-design/icons';
+import { Button, Tooltip, Space } from 'antd';
 import React, { Component } from 'react';
-import './MotelBrief.css';
+import './MotelBrief.scss';
 global.colorH = '';
+
+const IconText = ({ icon, text }) => (
+  <Space style={{ paddingRight: '10px' }}>
+    {React.createElement(icon)}
+    {text}
+  </Space>
+);
 export default class MotelBrief extends Component {
   constructor(props) {
     super(props);
@@ -23,21 +39,24 @@ export default class MotelBrief extends Component {
     };
     return (
       <div>
-        <Row
+        <div
+          className="MotelBrief"
           style={{
             border: '1px solid #C0C0C0',
             marginBottom: '20px',
             padding: '10px',
-            borderRadius: '2px',
-            height: '220px',
+            borderRadius: '5px',
+            height: '420px',
+            width: '350px',
+            boxShadow: '2px 2px 15px 2px rgb(148, 148, 148)',
           }}>
-          <Col span={5} style={{}}>
+          <div span={5} style={{}}>
             <img
               src={data.Image}
               style={{ width: '100%', height: '100%', backgroundColor: 'red', maxHeight: '200px' }}
             />
-          </Col>
-          <Col span={19} style={{ display: 'flex', flexDirection: 'column' }}>
+          </div>
+          <div span={19} style={{ display: 'flex', flexDirection: 'column' }}>
             <div
               className="MotalInfor"
               title="Xem Chi tiết"
@@ -94,7 +113,11 @@ export default class MotelBrief extends Component {
                 {data.description}
               </div>
             </div>
-
+            <div>
+              <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />
+              <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />
+              <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />
+            </div>
             <div style={{ display: 'flex', justifyContent: 'center', marginTop: '10px' }}>
               <Button type="primary" style={{ width: '200px' }}>
                 Liên hệ
@@ -102,8 +125,8 @@ export default class MotelBrief extends Component {
                 {data.phone}
               </Button>
             </div>
-          </Col>
-        </Row>
+          </div>
+        </div>
       </div>
     );
   }

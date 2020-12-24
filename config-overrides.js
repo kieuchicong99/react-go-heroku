@@ -7,7 +7,7 @@ module.exports = {
     (config, env) => ({
       ...config,
       proxy: {
-        '/api/v1/motel/by-code/5fe35486101c936f12834405': {
+        '/api/v1/motel/by-code': {
           target: process.env.DOMAIN,
           changeOrigin: true,
           pathRewrite: { '^/home': '' },

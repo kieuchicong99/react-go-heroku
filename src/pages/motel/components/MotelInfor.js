@@ -1,13 +1,14 @@
 /* eslint-disable react/no-did-mount-set-state */
 /* eslint-disable no-console */
-import { PhoneOutlined, ArrowLeftOutlined, HeartFilled } from '@ant-design/icons';
+import { PhoneOutlined, ArrowLeftOutlined, HeartFilled, CloseOutlined } from '@ant-design/icons';
 import { Button, Col, Row, Tooltip, Checkbox } from 'antd';
 import React, { Component } from 'react';
 import Slider from 'react-slick';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import './MotelInfor.css';
+import './MotelInfor.scss';
+import placeholder from '../../../assets/placeholder.png';
 import { API_URLS } from '../../../configs/api';
 import { apiCall } from '../../../utilities/api';
 
@@ -52,6 +53,10 @@ export default class Motel extends Component {
       notify: this.state.notify,
     };
     const { motelData } = this.state;
+
+    const fullscreen = document.getElementById('fullscreen');
+    const root = document.getElementById('root');
+    const fullSlideShow = document.getElementById('fullSlideShow');
     return (
       <div style={{ width: '100%' }}>
         <Button
@@ -68,15 +73,49 @@ export default class Motel extends Component {
         <Row>
           <Col span={18}>
             <div
+              id="fullSlideShow"
               style={{
                 backgroundColor: '#A0A0A0',
               }}>
+              {this.state.flag ? (
+                <CloseOutlined
+                  style={{ fontSize: 20 }}
+                  onClick={() => {
+                    root.style.display = '';
+                    // root.style.zIndex = 10;
+                    fullscreen.innerHTML = '';
+                    fullSlideShow.style.height = '500px';
+                    console.log(fullSlideShow);
+                    // fullscreen.display = 'none';
+                    // fullscreen.style.zIndex = -10;
+                  }}
+                />
+              ) : (
+                <></>
+              )}
               <Slider asNavFor={this.state.nav2} ref={(slider) => (this.slider1 = slider)}>
-                {motelData.Images?.map((item) => (
-                  <div>
-                    <img style={{ maxHeight: '500px' }} className="ParentImage" src={item} />
-                  </div>
-                ))}
+                {motelData != undefined ? (
+                  motelData?.Images?.map((item) => (
+                    <div style={{ border: '1px solid green' }} className="ParentImage">
+                      <img
+                        style={{ maxHeight: '500px' }}
+                        src={item}
+                        onClick={() => {
+                          fullSlideShow.style.height = '100%';
+                          this.setState({ flag: true });
+                          console.log('fullscreen', fullscreen);
+                          console.log('fullSlideShow', fullSlideShow);
+                          const a = fullSlideShow;
+                          fullscreen.appendChild(a);
+                          root.style.display = 'none';
+                          fullscreen.style.zIndex = 10;
+                        }}
+                      />
+                    </div>
+                  ))
+                ) : (
+                  <img style={{ maxHeight: '500px' }} className="ParentImage" src={placeholder} />
+                )}
               </Slider>
               <Slider
                 asNavFor={this.state.nav1}
@@ -84,8 +123,9 @@ export default class Motel extends Component {
                 slidesToShow={3}
                 swipeToSlide
                 focusOnSelect
-                style={{ margin: '0px 30px 5px 30px' }}>
-                {motelData.Images?.map((item) => (
+                centerMode
+                style={{ margin: '10px 30px 5px 30px' }}>
+                {motelData?.Images?.map((item) => (
                   <div>
                     <img className="ChildImage" src={item} />
                   </div>
@@ -93,8 +133,8 @@ export default class Motel extends Component {
               </Slider>
             </div>
             <div style={{ margin: '30px 0 0 0' }}>
-              <div style={{ textAlign: 'left', fontWeight: 'bold', fontSize: '18px' }}>{motelData.Title}</div>
-              <div style={{ width: '800px', textAlign: 'left' }}>{motelData.Address}</div>
+              <div style={{ textAlign: 'left', fontWeight: 'bold', fontSize: '18px' }}>{motelData?.Title}</div>
+              <div style={{ width: '800px', textAlign: 'left' }}>{motelData?.Address}</div>
 
               <div>
                 <Row
@@ -106,11 +146,11 @@ export default class Motel extends Component {
                   }}>
                   <Col span={6} style={{ textAlign: 'left' }}>
                     <div className="title">Mức giá:</div>
-                    <div style={{ fontWeight: 'bold', fontSize: '20px' }}>{motelData.Cost}</div>
+                    <div style={{ fontWeight: 'bold', fontSize: '20px' }}>{motelData?.Cost}</div>
                   </Col>
                   <Col span={12} style={{ textAlign: 'left' }}>
                     <div className="title">Diện tích:</div>
-                    <div style={{ fontWeight: 'bold', fontSize: '20px' }}>{motelData.Acreage}</div>
+                    <div style={{ fontWeight: 'bold', fontSize: '20px' }}>{motelData?.Acreage}</div>
                   </Col>
                   <Col span={6} style={{}}>
                     <div className="title" style={{ cursor: 'pointer' }}>
@@ -142,7 +182,7 @@ export default class Motel extends Component {
                 </Row>
                 <div>
                   <div className="title">MÔ TẢ</div>
-                  <div>{motelData.Description}</div>
+                  <div>{motelData?.Description}</div>
                   <div className="title">CÁC THÔNG TIN KHÁC</div>
                   <div>
                     <div>Giá điện</div>
@@ -150,9 +190,9 @@ export default class Motel extends Component {
                       Điều hòa
                     </Checkbox>
                     <div>Phòng tắm</div>
-                    <div>Ban công:</div> <Checkbox checked={motelData.HasAirCondition}>Điều hòa</Checkbox>
-                    <div>Giá nước: {motelData.WaterPrice}</div>
-                    <div>Phòng ăn: {motelData.kitchen}</div>
+                    <div>Ban công:</div> <Checkbox checked={motelData?.HasAirCondition}>Điều hòa</Checkbox>
+                    <div>Giá nước: {motelData?.WaterPrice}</div>
+                    <div>Phòng ăn: {motelData?.kitchen}</div>
                     <div>Phòng ngủ: 3 </div>
                     <div />
                   </div>

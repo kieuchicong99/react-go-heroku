@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { Col, Row, Table } from 'antd';
+import { Col, Row, Table, List, PageHeader } from 'antd';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
@@ -8,6 +8,7 @@ import Filter from './components/Filter';
 import MotelBrief from './components/MotelBrief';
 
 import './motel.css';
+
 
 class Motel extends Component {
   state = {
@@ -18,20 +19,6 @@ class Motel extends Component {
   getMotel = (params) => {
     this.props.getListMotel(params);
   };
-
-  columns = [
-    {
-      title: <div style={{ textTransform: 'uppercase', fontWeight: '900' }}>Danh sách các phòng trọ</div>,
-      dataIndex: 'post',
-      key: 'post',
-      render: (value, record) => (
-        <>
-          <MotelBrief itemdata={record} log={this.log} />
-        </>
-      ),
-    },
-  ];
-
   log = (route) => {
     this.props.history.push(route);
   };
@@ -48,14 +35,28 @@ class Motel extends Component {
     };
     return (
       <div>
-        <Row>
-          <Col span={18} style={{}}>
-            <Table dataSource={data} columns={this.columns} pagination={pagination} />
-          </Col>
+        <PageHeader style={{ textTransform: 'uppercase' }} title="Danh sách phòng trọ mới" />
+        <Row style={{ display: 'flex', justifyContent: 'center' }}>
+          <List
+            itemLayout="vertical"
+            grid={{}}
+            dataSource={data}
+            renderItem={(item) => (
+              <div style={{ padding: '20px' }}>
+                <MotelBrief itemdata={item} log={this.log} />
+              </div>
+            )}
+            pagination={{
+              onChange: (page) => {
+                console.log(page);
+              },
+              pageSize: 3,
+            }}
+          />
 
-          <Col span={6} style={{ marginTop: '20px' }}>
+          {/* <Col span={6} style={{ marginTop: '20px' }}>
             <Filter />
-          </Col>
+          </Col> */}
         </Row>
       </div>
     );
