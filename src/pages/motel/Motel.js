@@ -44,7 +44,7 @@ class Motel extends Component {
     const pagination = {
       current: 1,
       pageSize: 5,
-      total: data.length,
+      total: data?.length,
     };
     return (
       <div>

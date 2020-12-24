@@ -14,11 +14,11 @@ const meta = {
   onError: (errorCode) => {
     notification.open({
       message: 'Error',
-      description: "Error",
+      description: 'Error',
       type: 'error',
     });
-  }
-}
+  },
+};
 
 export default class ManagePost extends Component {
   render() {

@@ -8,7 +8,7 @@ module.exports = {
       ...config,
       proxy: {
         '/api/v1/motel/by-code/5fe35486101c936f12834405': {
-          target: process.env.DOMAIN_IMAGE,
+          target: process.env.DOMAIN,
           changeOrigin: true,
           pathRewrite: { '^/home': '' },
         },
