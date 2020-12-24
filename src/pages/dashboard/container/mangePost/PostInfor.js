@@ -135,7 +135,7 @@ class PostInfor extends React.Component {
       {
         width: '5%',
         title: 'Có người thuê',
-        render: () => <Switch onChange={() => } />,
+        render: () => <Switch />,
       },
       {
         title: 'Xóa',
