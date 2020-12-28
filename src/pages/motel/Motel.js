@@ -36,21 +36,33 @@ class Motel extends Component {
     <Menu>
       <Menu.Item>
         Điều Hòa
-        <Select style={{ minWidth: '100px' }}>
+        <Select
+          style={{ minWidth: '100px' }}
+          onChange={(value) => {
+            this.setState({ has_air_condition: value });
+          }}>
           <Option value="true"> Có</Option>
           <Option value="false"> không</Option>
         </Select>
       </Menu.Item>
       <Menu.Item>
         Ban công
-        <Select style={{ minWidth: '100px' }}>
+        <Select
+          style={{ minWidth: '100px' }}
+          onChange={(value) => {
+            this.setState({ has_balcony: value });
+          }}>
           <Option value="true"> Có</Option>
           <Option value="false"> không</Option>
         </Select>
       </Menu.Item>
       <Menu.Item>
         Nóng lạnh
-        <Select style={{ minWidth: '100px' }}>
+        <Select
+          style={{ minWidth: '100px' }}
+          onChange={(value) => {
+            this.setState({ has_water_header: value });
+          }}>
           <Option value="true"> Có</Option>
           <Option value="false"> không</Option>
         </Select>
@@ -89,7 +101,8 @@ class Motel extends Component {
     this.setState({});
   };
   chooseArea = (value) => {
-    this.setState({ addres: value });
+    console.log('chooseArea =>value:', value);
+    this.setState({ address: value });
   };
   chooseCondition = (value) => {
     this.setState({ addres: value });
@@ -107,7 +120,8 @@ class Motel extends Component {
         <div>
           <Row style={{}}>
             <Select
-              handleChange={this.chooseArea}
+              id="area"
+              onChange={this.chooseArea}
               showSearch
               style={{ width: 200 }}
               placeholder="Tìm theo tỉnh thành"
@@ -161,15 +175,18 @@ class Motel extends Component {
                       const {
                         from_cost,
                         to_cost,
-                        addres,
+                        address,
                         has_air_condition,
                         has_water_header,
                         has_balcony,
                       } = this.state;
+                      console.log('address:', address);
+                      const a = document.getElementById('area');
+                      console.log('value:', a.value);
                       this.props.getListMotel({
                         from_cost,
                         to_cost,
-                        addres,
+                        address,
                         has_air_condition,
                         has_water_header,
                         has_balcony,
