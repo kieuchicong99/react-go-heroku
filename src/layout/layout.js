@@ -39,8 +39,9 @@ function ContentLayout() {
         <Col span={8}>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <Link to="/home/nha-tro">Nhà trọ </Link>
-            <Link to="/home/thongke">Thống kê </Link>
-            <Link to="/home/bieudo">Biểu đồ</Link>
+            <Link to="/home/thongke">Chung cư mini </Link>
+            <Link to="/home/vp">Văn Phòng</Link>
+            <Link to="/home/homestay">Home Stay</Link>
           </div>
         </Col>
 

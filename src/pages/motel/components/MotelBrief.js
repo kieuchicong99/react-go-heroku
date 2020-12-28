@@ -63,15 +63,15 @@ export default class MotelBrief extends Component {
               onClick={() => {
                 this.props.log(`nha-tro-detail/${data.MotelCode}`);
               }}>
-              <div style={{ fontWeight: 'bold', paddingLeft: '10px' }}>{data.Title}</div>
+              <div style={{ fontWeight: 'bold', paddingLeft: '10px', maxHeight: '70px' }}>{data.Title}</div>
               <div style={{ display: 'flex', marginTop: '1%' }}>
-                <div style={{ color: 'red', marginLeft: '1%' }}>
+                <div style={{ color: 'red', marginLeft: '5px' }}>
                   <DollarCircleOutlined style={{ marginRight: '5px' }} />
                   {data.Cost} triệu/tháng
                 </div>
-                <div style={{ marginLeft: '1%' }}>
-                  <AreaChartOutlined style={{ margin: '0 5px 0 40px' }} />
-                  {data.Acreage}
+                <div style={{ marginLeft: '5px' }}>
+                  <AreaChartOutlined style={{ margin: '0 5px 0 30px' }} />
+                  {data.Acreage} m2
                 </div>
                 <div style={{ marginLeft: '5%' }}>
                   <HomeOutlined style={{ marginRight: '5px' }} />
@@ -102,15 +102,6 @@ export default class MotelBrief extends Component {
                     />
                   </Tooltip>
                 </div>
-              </div>
-              <div
-                style={{
-                  margin: '20px 0 0 10px',
-                  textAlign: 'left',
-                  maxHeight: '66px',
-                  overflow: 'hidden',
-                }}>
-                {data.description}
               </div>
             </div>
             <div>

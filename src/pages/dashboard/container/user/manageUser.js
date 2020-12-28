@@ -6,15 +6,27 @@ export default class ManageUser extends Component {
   dataSource = [
     {
       key: '1',
-      name: 'Mike',
-      age: 32,
-      address: '10 Downing Street',
+      name: 'Kiều Chí Công ',
+      age: 22,
+      address: 'Cầu Giấy, Hà Nội',
     },
     {
       key: '2',
-      name: 'John',
+      name: 'Test Admin',
       age: 42,
-      address: '10 Downing Street',
+      address: 'Xuân Thủy, Cầu Giấy, Hà Nội',
+    },
+    {
+      key: '3',
+      name: 'Nguyễn Văn Long',
+      age: 50,
+      address: 'Đống Đa, Hà Nội',
+    },
+    {
+      key: '2',
+      name: 'Test',
+      age: 32,
+      address: 'Hồ Chí Minh',
     },
   ];
   columns = [
