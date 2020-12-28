@@ -3,6 +3,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import './Menu.scss';
+import { API_URLS } from '../../configs/api';
+import { apiCall } from '../../utilities/api';
 import MENU_CONFIG from './config-menu/config-menu';
 const { Sider } = Layout;
 export default class MenuSelect extends React.Component {
@@ -10,6 +12,7 @@ export default class MenuSelect extends React.Component {
     super(props);
     this.state = {
       collapsed: false,
+      role: '',
     };
   }
   onCollapse = () => {
@@ -31,8 +34,23 @@ export default class MenuSelect extends React.Component {
       </Link>
     </Menu.Item>
   );
+
+  getUserInfo = async () => {
+    // const api = API_URLS.USER.getuserinfo();
+    // await apiCall(api).then((res) => {
+    //   console.log('UserInfo:', res.response.data.Data.RoleCode);
+    //   this.setState({ role: res.response.data.Data.RoleCode });
+    // });
+    const role = await localStorage.getItem('motelFinderRole');
+    this.setState({ role });
+  };
+
+  async componentDidMount() {
+    await this.getUserInfo();
+  }
   render() {
-    const { collapsed } = this.state;
+    const { collapsed, role } = this.state;
+    console.log('role', role);
     return (
       <Sider
         style={{ background: '#001529', minHeight: '200vh', position: 'sticky', top: '0' }}
@@ -51,7 +69,9 @@ export default class MenuSelect extends React.Component {
           </Link>
         </div>
         <Menu style={{ background: '#001529', border: 'none' }} theme="dark" mode="inline">
-          {MENU_CONFIG['ADMIN'].map((item) => (item.children ? this.renderSubMenu(item) : this.renderMenuItem(item)))}
+          {role != ''
+            ? MENU_CONFIG[role].map((item) => (item.children ? this.renderSubMenu(item) : this.renderMenuItem(item)))
+            : ''}
         </Menu>
       </Sider>
     );

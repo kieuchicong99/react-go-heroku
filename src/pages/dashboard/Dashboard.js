@@ -28,7 +28,7 @@ export default class Dashboard extends Component {
 
             <Route path="/dashboard/notification" component={Notification} />
             <Route path="/dashboard/statistic" component={Statistic} />
-            <Redirect to="/dashboard/user" />
+            <Redirect to="/dashboard/profile" />
           </div>
         </div>
       </div>

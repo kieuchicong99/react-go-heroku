@@ -7,6 +7,13 @@ import { apiCall } from '../../utilities/api';
 import './Login.scss';
 
 class Login extends Component {
+  getUserInfo = async () => {
+    const api = API_URLS.USER.getuserinfo();
+    await apiCall(api).then((res) => {
+      console.log('UserInfo:', res.response.data.Data.RoleCode);
+      localStorage.setItem('motelFinderRole', res.response.data.Data.RoleCode);
+    });
+  };
   insertUser = async (payload, meta) => {
     const api = API_URLS.USER.login(payload);
     const { response, error } = await apiCall({ ...api, payload });
@@ -15,6 +22,7 @@ class Login extends Component {
         // console.log('res:', response.data.Data);
         if (response.data.Data != null && response.data.Data.length > 20) {
           localStorage.setItem('motelFinderToken', response.data.Data);
+          await this.getUserInfo();
         }
 
         meta.onSuccess();
